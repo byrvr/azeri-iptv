@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Self-test every channel in playlist.json from YOUR network.
 
-Run it on the same kind of connection as the TV (for this playlist, an
-Azerbaijani one): some sources only answer from inside the country.
+Channels marked `"geo": "AZ"` only answer from inside Azerbaijan. From any
+other country their failures count only when they're unambiguous (404, 410,
+the domain no longer exists, the stream stopped); a 403 or timeout there is
+treated as "can't tell from here" and the channel is left alone.
 
     python3 selftest.py                    # tests playlist.json next to this file
     python3 selftest.py --tier unreachable # just re-check the dead ones
@@ -28,6 +30,12 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 TIMEOUT = 15
 HERE = os.path.dirname(os.path.abspath(__file__))
+# Failures that mean the stream is gone wherever you are, as opposed to a
+# geo-block (403, timeouts, resets, an HTML page instead of a playlist).
+DEFINITIVE = re.compile(
+    r"HTTP Error (404|410)\b|nodename nor servname|Name or service not known"
+    r"|No address associated|VOD, not live|manifest frozen")
+
 
 def fetch(url, headers=None, limit=None):
     req = urllib.request.Request(url)
@@ -41,6 +49,30 @@ def fetch(url, headers=None, limit=None):
 def seq_of(t):
     m = re.search(r"#EXT-X-MEDIA-SEQUENCE:(\d+)", t)
     return int(m.group(1)) if m else None
+
+
+def country(attempts=3):
+    """Two-letter country this network exits from, or None."""
+    for i in range(attempts):
+        try:
+            req = urllib.request.Request("https://www.cloudflare.com/cdn-cgi/trace",
+                                         headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=10) as r:
+                m = re.search(r"^loc=(\w+)$", r.read().decode(), re.M)
+                if m:
+                    return m.group(1)
+        except Exception:
+            pass
+        if i < attempts - 1:
+            time.sleep(10)
+    return None
+
+
+def can_judge(ch, result, here):
+    """Whether this result says anything about the channel from network `here`."""
+    if result["ok"] or not ch.get("geo") or ch["geo"] == here:
+        return True
+    return bool(DEFINITIVE.search(result["detail"]))
 
 
 def probe(url, headers):
@@ -75,7 +107,7 @@ def probe(url, headers):
         try:
             _, mb, mfinal = fetch(best[2], headers)
         except Exception as e:
-            return False, f"variant: {type(e).__name__}"[:70]
+            return False, f"variant: {type(e).__name__}: {e}"[:70]
         mtext, murl = mb.decode("utf-8", "replace"), best[2]
     else:
         mtext, mfinal, murl, res = text, final, url, "single"
@@ -90,7 +122,7 @@ def probe(url, headers):
     try:
         sst, sb, _ = fetch(segs[len(segs) // 2], headers, limit=700_000)
     except Exception as e:
-        return False, f"segment: {type(e).__name__}"[:70]
+        return False, f"segment: {type(e).__name__}: {e}"[:70]
     if len(sb) < 50_000:
         return False, f"segment too small ({len(sb)}B)"
 
@@ -125,12 +157,13 @@ def host(url):
     return urllib.parse.urlsplit(url).netloc
 
 
-def apply_results(doc, results, source="self-test from this network"):
+def apply_results(doc, results, source="self-test from this network", here=None):
     """Update tiers in `doc` from check() results; return what changed.
 
     A channel that passed only through an alternate gets that URL promoted to
     primary (the old primary moves to the end of `alt`), because the .m3u files
-    are built from the primary URL.
+    are built from the primary URL. Geo-locked channels that fail ambiguously
+    outside their country (see can_judge) are left as they are.
     """
     changes = []
     by_id = {r["ch"]["id"]: r for r in results}
@@ -148,7 +181,7 @@ def apply_results(doc, results, source="self-test from this network"):
                 c["verified_from"] = source
                 c.pop("reason", None)
                 changes.append(f"{c['name']}: working again")
-        elif c["tier"] == "verified":
+        elif c["tier"] == "verified" and can_judge(c, r, here):
             c["tier"] = "unreachable"
             c["reason"] = r["detail"]
             changes.append(f"{c['name']}: stopped working ({r['detail']})")
@@ -185,7 +218,9 @@ def main():
     print(f"\n{len(ok)}/{len(res)} working from this network")
 
     if a.promote:
-        for change in apply_results(doc, res):
+        here = country()
+        print(f"\nthis network exits in {here or 'an unknown country'}")
+        for change in apply_results(doc, res, here=here):
             print(" -", change)
         save(doc, a.playlist)
         print(f"\nupdated {a.playlist} -> verified={doc['counts']['verified']}")

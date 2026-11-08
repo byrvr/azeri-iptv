@@ -11,7 +11,7 @@ playlist.json     # everything: working channels, dead ones with the reason,
 selftest.py       # re-check every channel from your own network
 build_m3u.py      # regenerate both .m3u files from playlist.json
 autoupdate.py     # daily job: check, rebuild, push (see "Automatic updates")
-install-mac.sh    # schedule autoupdate.py on a Mac with launchd
+.github/workflows/update.yml  # runs autoupdate.py on GitHub Actions every day
 ```
 
 **Raw URLs** (what you point the TV app at):
@@ -83,33 +83,32 @@ healthy stream.
 
 ## Automatic updates
 
-`autoupdate.py` runs every day on a Mac in Baku, scheduled by launchd. It isn't
-on GitHub Actions because those runners are in the US, and some sources only
-answer from inside Azerbaijan. Each run:
+The **Update playlist** workflow runs `autoupdate.py` on GitHub Actions every
+day at 03:17 UTC (07:17 in Baku). Each run:
 
-- skips itself if the Mac isn't on an Azerbaijani connection (VPN, travel)
 - adds new working URLs from iptv-org's Azerbaijan list as alternates of
-  channels already here (matched by name or `aliases`)
+  channels already here (matched by name or `aliases`), skipping hosts in
+  `exclude_hosts` (yodacdn.net needs tokens; cinerama.uz inserts Uzbek ads)
 - checks every channel, then re-checks failures 3 minutes later so a short
   outage doesn't drop anything
-- gives up without changing anything if most working channels fail at once
 - marks channels working or dead, switches a channel to its alternate when the
-  primary dies, rebuilds the .m3u files, and commits and pushes only if
-  something changed
-- posts a macOS notification when it pushes or fails
+  primary dies, rebuilds the .m3u files, and commits only if something changed
+- gives up without changing anything if most channels fail at once
+- writes a per-channel table to the run's summary page
 
 New channels it finds on iptv-org are only logged, never added by itself.
 
-```bash
-./install-mac.sh                          # install; daily at 06:00
-./install-mac.sh --uninstall              # remove
-launchctl kickstart gui/$(id -u)/com.byrvr.azeri-iptv   # run now
-tail -f ~/Library/Logs/azeri-iptv.log     # watch it
-python3 autoupdate.py --dry-run           # see what it would change
-```
+**Geo-locked channels.** Actions runners are in the US, and some sources only
+answer from inside Azerbaijan. Those channels carry `"geo": "AZ"`. From outside
+Azerbaijan they're only dropped on an unambiguous failure (404, 410, the domain
+no longer exists, the stream stopped); a 403 or a timeout from the US says
+nothing about whether they work in Baku, so they're left alone. To re-check
+them properly, run `python3 selftest.py --promote` from an Azerbaijani
+connection.
 
-If the Mac is asleep at 06:00 the job runs when it wakes; if the Mac is off
-for days, the playlist just doesn't update until it's back.
+Run it by hand from the repo's **Actions** tab → *Update playlist* → *Run
+workflow* (tick *dry run* to only see what would change). GitHub emails you if
+a run fails.
 
 ## Checking by hand
 

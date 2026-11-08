@@ -1,0 +1,35 @@
+name: Update playlist
+
+on:
+  schedule:
+    - cron: "17 3 * * *"   # daily at 03:17 UTC (07:17 in Baku)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only report what would change; don't commit"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-playlist
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Check channels and update the playlists
+        run: python3 autoupdate.py ${{ inputs.dry_run && '--dry-run' || '' }}

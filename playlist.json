@@ -11,6 +11,10 @@
     "verified": "Manifest, media playlist, a real segment download and live-edge advance all confirmed, from the network named in `verified_from`.",
     "unreachable": "No working free stream found. Kept so selftest.py keeps re-checking them; `reason` says why each one fails."
   },
+  "exclude_hosts": [
+    "yodacdn.net",
+    "cinerama.uz"
+  ],
   "channels": [
     {
       "id": "aztv",
