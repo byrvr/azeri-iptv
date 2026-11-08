@@ -4,8 +4,8 @@
   "updated": "2026-11-08T13:30:00Z",
   "counts": {
     "verified": 25,
-    "unreachable": 16,
-    "total": 41
+    "unreachable": 17,
+    "total": 42
   },
   "tiers": {
     "verified": "Manifest, media playlist, a real segment download and live-edge advance all confirmed, from the network named in `verified_from`.",
@@ -193,6 +193,7 @@
       ],
       "group": "Sports",
       "tier": "verified",
+      "geo": "AZ",
       "res": "1080p",
       "url": "https://cbcsports-live.lg.mncdn.com/cbcsports_live/cbcsports/playlist.m3u8",
       "alt": [
@@ -427,6 +428,25 @@
       "url": "https://str.yodacdn.net/tmbaz/video.m3u8",
       "logo": "https://yoda.az/logos/tmb.png",
       "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
+    },
+    {
+      "id": "anewz",
+      "name": "AnewZ TV",
+      "aliases": [
+        "AnewZ"
+      ],
+      "group": "News",
+      "tier": "unreachable",
+      "url": "https://edge-de-04.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8",
+      "alt": [
+        "https://edge-rs-01.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8"
+      ],
+      "headers": {
+        "Referer": "https://cdn.maksnet.tv/"
+      },
+      "logo": "https://i.imgur.com/Lwgdbuu.png",
+      "note": "English-language international news channel based in Baku",
+      "reason": "web feed frozen (manifest stopped advancing), 2026-11-08"
     },
     {
       "id": "arb24",

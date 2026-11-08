@@ -4,8 +4,8 @@ Free-to-air Azerbaijani TV channels as a public HLS playlist, in both JSON and
 M3U form, for loading into a TV app (built for cub.best / Lampa).
 
 ```
-playlist-all.m3u  # 12 channels, one entry each (same as playlist.m3u; old name)
-playlist.m3u      # 12 channels, one entry each
+playlist-all.m3u  # 25 channels, one entry each (same as playlist.m3u; old name)
+playlist.m3u      # 25 channels, one entry each
 playlist.json     # everything: working channels, dead ones with the reason,
                   # alternate URLs, headers, logos
 selftest.py       # re-check every channel from your own network
@@ -22,36 +22,66 @@ https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist.m3u
 https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist.json
 ```
 
-## 12 working channels
+## 25 working channels
 
 Last checked 2026-11-08 from Baku (AG Telekom) and from GitHub Actions (US).
 
 | Channel | Group | Source | Notes |
 |---|---|---|---|
-| Baku TV | News | `rtmp.baku.tv` | |
 | İctimai TV | General | `live.itv.az` | only reachable from Azerbaijan (`geo: AZ`) |
-| APA TV | News | `stream.apa.tv` | HTTP only |
 | ATV | General | `lives.atv.az:5443` | port 5443 |
 | Kanal S | General | `lives.atv.az:5443` | port 5443 |
 | Ayaz TV | General | `vgcdn.net` | |
 | AzStar TV | General | `livestreamtv.ca`, alt `live.azstartv.com` | diaspora, broadcast from Canada; alt is HTTP only |
+| EL TV | General | `live.eltv.az`, alt `85.132.53.162` | 360p only |
+| Xəzər TV | General | `xezer.tvstream.az` | needs a Referer header, see below |
+| Show Plus TV | General | `rtmp.showplus.tv` | small self-run server |
+| Könül TV | General | `yayin.com.tr` | HTTP only; mostly Turkish films and series |
+| Baku TV | News | `rtmp.baku.tv` | |
+| APA TV | News | `stream.apa.tv` | HTTP only |
+| Səs TV | News | `145.239.37.125:20458` | HTTP only, bare IP on a reseller's server |
+| CBC Sport | Sports | `mncdn.com` | only reachable from Azerbaijan (`geo: AZ`); shows a slate during domestic football matches |
 | KN Music TV | Music | `yayin.com.tr` | |
-| GunAz TV | General | `tv.gunaz.tv` | South Azerbaijani (Iranian Azeri) diaspora |
-| Vilayət TV | General | `livekadeh.com` | South Azerbaijani (Iranian Azeri) |
-| EL TV | General | `live.eltv.az` | 360p only |
+| KTV Music | Music | `yayin.com.tr` | Könül TV's music channel |
+| Yurd FM TV | Music | `restreamer.livetv.az` | visual radio |
+| Media FM TV | Music | `restreamer.livetv.az` | visual radio |
 | Kəpəz TV | Regional | `85.132.78.122:8050` | HTTP only, bare IP that can change |
+| Dünya TV | Regional | `stream.dunyatv.az` | Sumqayıt |
+| GunAz TV | South Azerbaijan | `tv.gunaz.tv` | diaspora channel |
+| Vilayət TV | South Azerbaijan | `livekadeh.com` | |
+| Səhənd TV | South Azerbaijan | `telewebion.ir` | Iranian state TV, Tabriz; Persian and Azerbaijani |
+| Savalan TV | South Azerbaijan | `telewebion.ir` | Iranian state TV, Ardabil; Persian and Azerbaijani |
+| Qərbi Azərbaycan TV | South Azerbaijan | `telewebion.ir` | Iranian state TV, Urmia; Persian, Azerbaijani and Kurdish |
+| Hadi TV | Religious | `zeuscdn724.com` | Azerbaijani-language Shia channel |
 
 **HTTP-only** streams play fine in the TV app but can be blocked as mixed content
 in cub.best's web version. **Port 5443** is refused by a few networks and TV apps.
 
+**Xəzər TV** only sends video to requests that carry
+`Referer: https://xezerxeber.az/`. The playlist passes it as
+`#EXTVLCOPT:http-referrer=...`, which VLC-style players honour. An app that
+ignores that line (and any web browser, which can't set a Referer) gets the
+channel list entry but no picture.
+
+## Left out on purpose
+
+These play, but aren't really Azerbaijani channels, so they're not in the playlist:
+
+- **Səhər TV (Sahar Azeri)**: Iranian state broadcaster's Azerbaijani-language
+  channel aimed at Azerbaijan; Azerbaijan's media regulator has criticised it.
+- **TRT Avaz**: Turkish state TV for the Turkic world, mostly in Turkish.
+- **İşraq TV**: Iranian provincial channel for Zanjan, mostly in Persian.
+- **Kanal 35**: tagged `group-title="Azerbaijan"` in several public playlists,
+  but it's an İzmir regional channel.
+
 ## What's gone, and why
 
-18 channels have no working free stream. They stay in `playlist.json` with
-`tier: "unreachable"` and a `reason`, so `selftest.py` keeps re-checking them
-and `--promote` brings back any that recover.
+17 channels have no working free stream. They stay in `playlist.json` with
+`tier: "unreachable"` and a `reason`, so the daily check keeps trying them and
+brings back any that recover.
 
-- **ARB, ARB 24, ARB Günəş, Space, Real, İdman, Qafqaz, MTV, VIP HD, SH TV, TMB,
-  Biznes, Mədəniyyət, Naxçıvan** all streamed from the `yoda.az` platform's CDN
+- **ARB, ARB 24, ARB Günəş, Space, Real, İdman, Qafqaz, VIP HD, SH TV, TMB,
+  Mədəniyyət, Naxçıvan** all streamed from the `yoda.az` platform's CDN
   (`str*.yodacdn.net`). It now refuses any request without a per-viewer token
   (`x-deny-reason: deny_backend`), from inside Azerbaijan too. The official
   player issues that token bound to the viewer's IP and user agent, valid for
@@ -59,9 +89,13 @@ and `--promote` brings back any that recover.
   app or on the broadcasters' own sites, which embed the same player.
 - **AzTV**: the only open streams are on `cinerama.uz`, an Uzbek OTT service
   that inserts its own ads; the official stream is on yodacdn (token).
-- **CBC**: the castr stream ID changed (404); the yodacdn copy needs a token.
-- **Xəzər TV**: 410 Gone.
-- **Show Plus**: 404.
+- **Biznes TV, MTV Azərbaycan**: their own streams (`biznestv.az`,
+  `85.132.78.6:1935`) return 404 for now; the yodacdn copies need a token.
+  The playlist points at their own streams, so they come back automatically.
+- **CBC**: the castr stream says "Stream Offline"; the yodacdn copy needs a
+  token. Also re-checked daily.
+- **AnewZ** (English-language news from Baku): the web feed is frozen, so the
+  same picture never advances. Re-checked daily.
 
 An earlier version of this playlist called the yodacdn channels geo-locked and
 "working from Azerbaijan". As of November 2026 that's no longer true.
@@ -125,9 +159,8 @@ python3 build_m3u.py                    # rebuild the .m3u files
 ## Sources
 
 Candidates came from the [iptv-org](https://github.com/iptv-org/iptv) playlists,
-the official broadcaster sites, and the `yoda.az` platform. Only free-to-air
+the broadcasters' own sites, other public playlists on GitHub, and the `yoda.az`
+platform. Every stream passed the checks under "What verified means" from Baku
+before going in. Only free-to-air
 sources are included: no subscription-portal scrapes, no credential-bearing
 Xtream URLs, and no token-scraping proxies.
-
-**Kanal 35** appears in several public playlists tagged `group-title="Azerbaijan"`.
-It is an **İzmir regional channel**, not Azerbaijani, and is excluded.
