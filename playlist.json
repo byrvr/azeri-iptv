@@ -3,8 +3,8 @@
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
   "updated": "2026-11-08T12:30:00Z",
   "counts": {
-    "verified": 13,
-    "unreachable": 17,
+    "verified": 12,
+    "unreachable": 18,
     "total": 30
   },
   "tiers": {
@@ -16,22 +16,6 @@
     "cinerama.uz"
   ],
   "channels": [
-    {
-      "id": "aztv",
-      "name": "AzTV",
-      "group": "General",
-      "tier": "verified",
-      "res": "1080p",
-      "url": "https://stream1.cinerama.uz/1455/tracks-v1a1/mono.m3u8",
-      "alt": [
-        "https://stream2.cinerama.uz/1455/tracks-v1a1/mono.m3u8",
-        "https://stream3.cinerama.uz/1455/tracks-v1a1/mono.m3u8",
-        "https://stream8.cinerama.uz/1455/tracks-v1a1/mono.m3u8"
-      ],
-      "logo": "https://yoda.az/logos/aztv.svg",
-      "epg": "https://azepg.ddns.net/aztv/15_days_archive__aztv_desc.xml",
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
-    },
     {
       "id": "bakutv",
       "name": "Baku TV",
@@ -48,6 +32,7 @@
       "name": "İctimai TV",
       "group": "General",
       "tier": "verified",
+      "geo": "AZ",
       "res": "1080p",
       "url": "https://live.itv.az/itv.m3u8",
       "logo": "https://yoda.az/logos/itv.png",
@@ -178,6 +163,16 @@
         "served from a bare IP address, which can change without notice"
       ],
       "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "aztv",
+      "name": "AzTV",
+      "group": "General",
+      "tier": "unreachable",
+      "url": "https://str.yodacdn.net/azertv/index.m3u8",
+      "logo": "https://yoda.az/logos/aztv.svg",
+      "epg": "https://azepg.ddns.net/aztv/15_days_archive__aztv_desc.xml",
+      "reason": "the only open sources (stream*.cinerama.uz) are an Uzbek OTT that inserts its own ads; the official yodacdn stream needs a token"
     },
     {
       "id": "medeniyyet",

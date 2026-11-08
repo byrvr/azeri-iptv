@@ -4,8 +4,8 @@ Free-to-air Azerbaijani TV channels as a public HLS playlist, in both JSON and
 M3U form, for loading into a TV app (built for cub.best / Lampa).
 
 ```
-playlist-all.m3u  # 13 channels, one entry each (same as playlist.m3u; old name)
-playlist.m3u      # 13 channels, one entry each
+playlist-all.m3u  # 12 channels, one entry each (same as playlist.m3u; old name)
+playlist.m3u      # 12 channels, one entry each
 playlist.json     # everything: working channels, dead ones with the reason,
                   # alternate URLs, headers, logos
 selftest.py       # re-check every channel from your own network
@@ -22,15 +22,14 @@ https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist.m3u
 https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist.json
 ```
 
-## 13 working channels
+## 12 working channels
 
-Last checked 2026-11-08 from Baku (AG Telekom), three separate passes.
+Last checked 2026-11-08 from Baku (AG Telekom) and from GitHub Actions (US).
 
 | Channel | Group | Source | Notes |
 |---|---|---|---|
-| AzTV | General | `stream1.cinerama.uz`, alts `stream2/3/8` | stream8 currently redirects to a "blocked" slate |
 | Baku TV | News | `rtmp.baku.tv` | |
-| İctimai TV | General | `live.itv.az` | |
+| İctimai TV | General | `live.itv.az` | only reachable from Azerbaijan (`geo: AZ`) |
 | APA TV | News | `stream.apa.tv` | HTTP only |
 | ATV | General | `lives.atv.az:5443` | port 5443 |
 | Kanal S | General | `lives.atv.az:5443` | port 5443 |
@@ -47,7 +46,7 @@ in cub.best's web version. **Port 5443** is refused by a few networks and TV app
 
 ## What's gone, and why
 
-17 channels have no working free stream. They stay in `playlist.json` with
+18 channels have no working free stream. They stay in `playlist.json` with
 `tier: "unreachable"` and a `reason`, so `selftest.py` keeps re-checking them
 and `--promote` brings back any that recover.
 
@@ -58,6 +57,8 @@ and `--promote` brings back any that recover.
   player issues that token bound to the viewer's IP and user agent, valid for
   24 hours, so no fixed URL in a playlist can work. Watch these in the yoda.az
   app or on the broadcasters' own sites, which embed the same player.
+- **AzTV**: the only open streams are on `cinerama.uz`, an Uzbek OTT service
+  that inserts its own ads; the official stream is on yodacdn (token).
 - **CBC**: the castr stream ID changed (404); the yodacdn copy needs a token.
 - **Xəzər TV**: 410 Gone.
 - **Show Plus**: 404.

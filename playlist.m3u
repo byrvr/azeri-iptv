@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="aztv" tvg-name="AzTV" tvg-logo="https://yoda.az/logos/aztv.svg" group-title="General",AzTV
-https://stream1.cinerama.uz/1455/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="bakutv" tvg-name="Baku TV" tvg-logo="https://yoda.az/logos/bakutv.webp" group-title="News",Baku TV
 https://rtmp.baku.tv/hls/bakutv.m3u8
 #EXTINF:-1 tvg-id="ictimaitv" tvg-name="İctimai TV" tvg-logo="https://yoda.az/logos/itv.png" group-title="General",İctimai TV
