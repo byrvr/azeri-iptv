@@ -1,10 +1,6 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="bakutv" tvg-name="Baku TV" tvg-logo="https://yoda.az/logos/bakutv.webp" group-title="News",Baku TV
-https://rtmp.baku.tv/hls/bakutv.m3u8
 #EXTINF:-1 tvg-id="ictimaitv" tvg-name="İctimai TV" tvg-logo="https://yoda.az/logos/itv.png" group-title="General",İctimai TV
 https://live.itv.az/itv.m3u8
-#EXTINF:-1 tvg-id="apatv" tvg-name="APA TV" tvg-logo="https://yoda.az/logos/apatv.png" group-title="News",APA TV
-http://stream.apa.tv/apastream/index.m3u8
 #EXTINF:-1 tvg-id="atv" tvg-name="ATV" tvg-logo="https://yoda.az/logos/atv.svg" group-title="General",ATV
 https://lives.atv.az:5443/ATV_TV_STREAM/streams/atvcanli.m3u8
 #EXTINF:-1 tvg-id="start" tvg-name="Kanal S" tvg-logo="https://yoda.az/logos/start.png" group-title="General",Kanal S
@@ -13,13 +9,44 @@ https://lives.atv.az:5443/KANAL-S/streams/kanals.m3u8
 https://janya-ayaztv.vgcdn.net/ptnr-WebApp/title-Ayaz_TV/v1/vglive-sk-934820/main.m3u8
 #EXTINF:-1 tvg-id="azstartv" tvg-name="AzStar TV" group-title="General",AzStar TV
 https://live.livestreamtv.ca/azstar/amlst:azstar/playlist.m3u8
-#EXTINF:-1 tvg-id="knmusictv" tvg-name="KN Music TV" tvg-logo="https://www.knmusictv.com/wp-content/uploads/2026/01/LOGO2112.png" group-title="Music",KN Music TV
-https://cdn4.yayin.com.tr/kntv/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-id="gunaztv" tvg-name="GunAz TV" tvg-logo="https://i.imgur.com/2ZnQazl.png" group-title="General",GunAz TV
-https://tv.gunaz.tv/hls/live.m3u8
-#EXTINF:-1 tvg-id="vilayettv" tvg-name="Vilayət TV" tvg-logo="https://vilayet.tv/wp-content/uploads/elementor/thumbs/logo-q3w2md1u47q39x7d0004wqzz74xdv1glw356ex6ph0.png" group-title="General",Vilayət TV
-https://nl.livekadeh.com/hls2/vilayet.m3u8
 #EXTINF:-1 tvg-id="eltv" tvg-name="EL TV" tvg-logo="https://i.imgur.com/tTlokZ2.png" group-title="General",EL TV
 https://live.eltv.az/live/eltv/playlist.m3u8
+#EXTINF:-1 tvg-id="xezer" tvg-name="Xəzər TV" tvg-logo="https://yoda.az/logos/xazar.png" group-title="General",Xəzər TV
+#EXTVLCOPT:http-referrer=https://xezerxeber.az/
+https://xezer.tvstream.az/hls/stream/index.m3u8
+#EXTINF:-1 tvg-id="showplus" tvg-name="Show Plus TV" tvg-logo="https://yoda.az/logos/showplus.png" group-title="General",Show Plus TV
+https://rtmp.showplus.tv/hls/myshow.m3u8
+#EXTINF:-1 tvg-id="konultv" tvg-name="Könül TV" group-title="General",Könül TV
+http://cdn-konultvazerbaijan.yayin.com.tr/konultvazerbaijan/konultvazerbaijan/playlist.m3u8
+#EXTINF:-1 tvg-id="bakutv" tvg-name="Baku TV" tvg-logo="https://yoda.az/logos/bakutv.webp" group-title="News",Baku TV
+https://rtmp.baku.tv/hls/bakutv.m3u8
+#EXTINF:-1 tvg-id="apatv" tvg-name="APA TV" tvg-logo="https://yoda.az/logos/apatv.png" group-title="News",APA TV
+http://stream.apa.tv/apastream/index.m3u8
+#EXTINF:-1 tvg-id="sestv" tvg-name="Səs TV" tvg-logo="https://sestv.az/assets/images/apple-touch-icon.png" group-title="News",Səs TV
+http://145.239.37.125:20458/maksimtv/maksimtv/playlist.m3u8
+#EXTINF:-1 tvg-id="cbcsport" tvg-name="CBC Sport" tvg-logo="https://i.imgur.com/3mEdjuq.png" group-title="Sports",CBC Sport
+https://cbcsports-live.lg.mncdn.com/cbcsports_live/cbcsports/playlist.m3u8
+#EXTINF:-1 tvg-id="knmusictv" tvg-name="KN Music TV" tvg-logo="https://www.knmusictv.com/wp-content/uploads/2026/01/LOGO2112.png" group-title="Music",KN Music TV
+https://cdn4.yayin.com.tr/kntv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="ktvmusic" tvg-name="KTV Music" group-title="Music",KTV Music
+https://cdn4.yayin.com.tr/bakixebertv/video.m3u8
+#EXTINF:-1 tvg-id="yurdfmtv" tvg-name="Yurd FM TV" group-title="Music",Yurd FM TV
+https://restreamer.livetv.az/yurdfm.index.m3u8
+#EXTINF:-1 tvg-id="mediafmtv" tvg-name="Media FM TV" group-title="Music",Media FM TV
+https://restreamer.livetv.az/mediafm.index.m3u8
 #EXTINF:-1 tvg-id="kapaztv" tvg-name="Kəpəz TV" tvg-logo="https://upload.wikimedia.org/wikipedia/az/thumb/3/3e/K%C9%99p%C9%99z_TV_%282019-h.h.%29.png/500px-K%C9%99p%C9%99z_TV_%282019-h.h.%29.png" group-title="Regional",Kəpəz TV
 http://85.132.78.122:8050/hls/stream/index.m3u8
+#EXTINF:-1 tvg-id="dunyatv" tvg-name="Dünya TV" tvg-logo="https://dunyatv.az/logo.png" group-title="Regional",Dünya TV
+https://stream.dunyatv.az/live/dunyatv.m3u8
+#EXTINF:-1 tvg-id="gunaztv" tvg-name="GunAz TV" tvg-logo="https://i.imgur.com/2ZnQazl.png" group-title="South Azerbaijan",GunAz TV
+https://tv.gunaz.tv/hls/live.m3u8
+#EXTINF:-1 tvg-id="vilayettv" tvg-name="Vilayət TV" tvg-logo="https://vilayet.tv/wp-content/uploads/elementor/thumbs/logo-q3w2md1u47q39x7d0004wqzz74xdv1glw356ex6ph0.png" group-title="South Azerbaijan",Vilayət TV
+https://nl.livekadeh.com/hls2/vilayet.m3u8
+#EXTINF:-1 tvg-id="sahand" tvg-name="Səhənd TV" tvg-logo="https://upload.wikimedia.org/wikipedia/fa/thumb/3/37/Tabriz_Sahand.svg/960px-Tabriz_Sahand.svg.png" group-title="South Azerbaijan",Səhənd TV
+https://ncdn.telewebion.ir/sahand/live/playlist.m3u8
+#EXTINF:-1 tvg-id="savalan" tvg-name="Savalan TV" tvg-logo="https://upload.wikimedia.org/wikipedia/fa/f/f2/Ardabil_SABALAN.png" group-title="South Azerbaijan",Savalan TV
+https://ncdn.telewebion.ir/sabalan/live/playlist.m3u8
+#EXTINF:-1 tvg-id="qerbiazerbaycan" tvg-name="Qərbi Azərbaycan TV" tvg-logo="https://upload.wikimedia.org/wikipedia/fa/thumb/2/21/Urmia_TV.svg/960px-Urmia_TV.svg.png" group-title="South Azerbaijan",Qərbi Azərbaycan TV
+https://ncdn.telewebion.ir/azarbayjangharbi/live/playlist.m3u8
+#EXTINF:-1 tvg-id="haditv" tvg-name="Hadi TV" tvg-logo="https://az.haditv.co.uk/pics/logo.png" group-title="Religious",Hadi TV
+https://bucharest.zeuscdn724.com/lb0/H3/index.m3u8

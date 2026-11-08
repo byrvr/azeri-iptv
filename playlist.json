@@ -1,11 +1,11 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-08T12:30:00Z",
+  "updated": "2026-11-08T13:30:00Z",
   "counts": {
-    "verified": 12,
-    "unreachable": 18,
-    "total": 30
+    "verified": 25,
+    "unreachable": 16,
+    "total": 41
   },
   "tiers": {
     "verified": "Manifest, media playlist, a real segment download and live-edge advance all confirmed, from the network named in `verified_from`.",
@@ -17,17 +17,6 @@
   ],
   "channels": [
     {
-      "id": "bakutv",
-      "name": "Baku TV",
-      "group": "News",
-      "tier": "verified",
-      "res": "1080p",
-      "url": "https://rtmp.baku.tv/hls/bakutv.m3u8",
-      "logo": "https://yoda.az/logos/bakutv.webp",
-      "epg": "https://azepg.ddns.net/aztv/15_days_archive__bakutv_desc.xml",
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
-    },
-    {
       "id": "ictimaitv",
       "name": "İctimai TV",
       "group": "General",
@@ -37,19 +26,6 @@
       "url": "https://live.itv.az/itv.m3u8",
       "logo": "https://yoda.az/logos/itv.png",
       "epg": "https://azepg.ddns.net/aztv/15_days_archive__itv_desc.xml",
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
-    },
-    {
-      "id": "apatv",
-      "name": "APA TV",
-      "group": "News",
-      "tier": "verified",
-      "res": "1080p",
-      "url": "http://stream.apa.tv/apastream/index.m3u8",
-      "logo": "https://yoda.az/logos/apatv.png",
-      "warnings": [
-        "HTTP-only origin (no TLS); fine in the TV app, may be blocked in cub.best's web version"
-      ],
       "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
     },
     {
@@ -103,6 +79,133 @@
       "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
     },
     {
+      "id": "eltv",
+      "name": "EL TV",
+      "group": "General",
+      "tier": "verified",
+      "res": "360p",
+      "url": "https://live.eltv.az/live/eltv/playlist.m3u8",
+      "alt": [
+        "http://85.132.53.162:1935/live/eltv/playlist.m3u8"
+      ],
+      "logo": "https://i.imgur.com/tTlokZ2.png",
+      "warnings": [
+        "360p only"
+      ],
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "xezer",
+      "name": "Xəzər TV",
+      "group": "General",
+      "tier": "verified",
+      "res": "720p",
+      "url": "https://xezer.tvstream.az/hls/stream/index.m3u8",
+      "alt": [
+        "https://xezer.tvstream.az/hls/stream/main_stream.m3u8"
+      ],
+      "headers": {
+        "Referer": "https://xezerxeber.az/"
+      },
+      "logo": "https://yoda.az/logos/xazar.png",
+      "epg": "https://azepg.ddns.net/aztv/15_days_archive__xezer_desc.xml",
+      "note": "Broadcaster's own stream, hosted by tvstream.az (small watermark bottom-left)",
+      "warnings": [
+        "needs Referer https://xezerxeber.az/: video segments are refused without it, so it only plays in apps that honour #EXTVLCOPT headers"
+      ],
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "showplus",
+      "name": "Show Plus TV",
+      "group": "General",
+      "tier": "verified",
+      "res": "1080p",
+      "url": "https://rtmp.showplus.tv/hls/myshow.m3u8",
+      "logo": "https://yoda.az/logos/showplus.png",
+      "warnings": [
+        "small self-run server (US hosting); could disappear"
+      ],
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "konultv",
+      "name": "Könül TV",
+      "aliases": [
+        "Konul TV"
+      ],
+      "group": "General",
+      "tier": "verified",
+      "res": "1080p",
+      "url": "http://cdn-konultvazerbaijan.yayin.com.tr/konultvazerbaijan/konultvazerbaijan/playlist.m3u8",
+      "note": "Azerbaijani-language channel; mostly Turkish films and series",
+      "warnings": [
+        "HTTP only"
+      ],
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "bakutv",
+      "name": "Baku TV",
+      "group": "News",
+      "tier": "verified",
+      "res": "1080p",
+      "url": "https://rtmp.baku.tv/hls/bakutv.m3u8",
+      "logo": "https://yoda.az/logos/bakutv.webp",
+      "epg": "https://azepg.ddns.net/aztv/15_days_archive__bakutv_desc.xml",
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "apatv",
+      "name": "APA TV",
+      "group": "News",
+      "tier": "verified",
+      "res": "1080p",
+      "url": "http://stream.apa.tv/apastream/index.m3u8",
+      "logo": "https://yoda.az/logos/apatv.png",
+      "warnings": [
+        "HTTP-only origin (no TLS); fine in the TV app, may be blocked in cub.best's web version"
+      ],
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "sestv",
+      "name": "Səs TV",
+      "aliases": [
+        "Ses TV"
+      ],
+      "group": "News",
+      "tier": "verified",
+      "res": "720p",
+      "url": "http://145.239.37.125:20458/maksimtv/maksimtv/playlist.m3u8",
+      "logo": "https://sestv.az/assets/images/apple-touch-icon.png",
+      "warnings": [
+        "HTTP only",
+        "bare IP on a reseller's server; can move without notice"
+      ],
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "cbcsport",
+      "name": "CBC Sport",
+      "aliases": [
+        "CBC Sports"
+      ],
+      "group": "Sports",
+      "tier": "verified",
+      "res": "1080p",
+      "url": "https://cbcsports-live.lg.mncdn.com/cbcsports_live/cbcsports/playlist.m3u8",
+      "alt": [
+        "https://cbcsports-live.lg.mncdn.com/cbcsports_live/cbcsports/chunklist.m3u8"
+      ],
+      "logo": "https://i.imgur.com/3mEdjuq.png",
+      "note": "Azerbaijani national sports channel",
+      "warnings": [
+        "shows a 'not available on digital platforms' slate during domestic football matches"
+      ],
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
       "id": "knmusictv",
       "name": "KN Music TV",
       "group": "Music",
@@ -113,38 +216,31 @@
       "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
     },
     {
-      "id": "gunaztv",
-      "name": "GunAz TV",
-      "group": "General",
+      "id": "ktvmusic",
+      "name": "KTV Music",
+      "group": "Music",
       "tier": "verified",
-      "res": "576p",
-      "url": "https://tv.gunaz.tv/hls/live.m3u8",
-      "logo": "https://i.imgur.com/2ZnQazl.png",
-      "note": "South Azerbaijani (Iranian Azeri) diaspora channel",
+      "res": "720p",
+      "url": "https://cdn4.yayin.com.tr/bakixebertv/video.m3u8",
+      "note": "Könül TV's music channel",
       "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
     },
     {
-      "id": "vilayettv",
-      "name": "Vilayət TV",
-      "group": "General",
+      "id": "yurdfmtv",
+      "name": "Yurd FM TV",
+      "group": "Music",
       "tier": "verified",
-      "res": "576p",
-      "url": "https://nl.livekadeh.com/hls2/vilayet.m3u8",
-      "logo": "https://vilayet.tv/wp-content/uploads/elementor/thumbs/logo-q3w2md1u47q39x7d0004wqzz74xdv1glw356ex6ph0.png",
-      "note": "South Azerbaijani (Iranian Azeri) channel",
+      "url": "https://restreamer.livetv.az/yurdfm.index.m3u8",
+      "note": "Visual radio of Yurd FM, restreamed by livetv.az",
       "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
     },
     {
-      "id": "eltv",
-      "name": "EL TV",
-      "group": "General",
+      "id": "mediafmtv",
+      "name": "Media FM TV",
+      "group": "Music",
       "tier": "verified",
-      "res": "360p",
-      "url": "https://live.eltv.az/live/eltv/playlist.m3u8",
-      "logo": "https://i.imgur.com/tTlokZ2.png",
-      "warnings": [
-        "360p only"
-      ],
+      "url": "https://restreamer.livetv.az/mediafm.index.m3u8",
+      "note": "Visual radio of Media FM (Baku), restreamed by livetv.az",
       "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
     },
     {
@@ -165,6 +261,95 @@
       "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
     },
     {
+      "id": "dunyatv",
+      "name": "Dünya TV",
+      "aliases": [
+        "Dunya TV"
+      ],
+      "group": "Regional",
+      "tier": "verified",
+      "url": "https://stream.dunyatv.az/live/dunyatv.m3u8",
+      "logo": "https://dunyatv.az/logo.png",
+      "note": "Regional channel from Sumqayıt; broadcaster's own stream",
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "gunaztv",
+      "name": "GunAz TV",
+      "group": "South Azerbaijan",
+      "tier": "verified",
+      "res": "576p",
+      "url": "https://tv.gunaz.tv/hls/live.m3u8",
+      "logo": "https://i.imgur.com/2ZnQazl.png",
+      "note": "South Azerbaijani (Iranian Azeri) diaspora channel",
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "vilayettv",
+      "name": "Vilayət TV",
+      "group": "South Azerbaijan",
+      "tier": "verified",
+      "res": "576p",
+      "url": "https://nl.livekadeh.com/hls2/vilayet.m3u8",
+      "logo": "https://vilayet.tv/wp-content/uploads/elementor/thumbs/logo-q3w2md1u47q39x7d0004wqzz74xdv1glw356ex6ph0.png",
+      "note": "South Azerbaijani (Iranian Azeri) channel",
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "sahand",
+      "name": "Səhənd TV",
+      "aliases": [
+        "Sahand TV"
+      ],
+      "group": "South Azerbaijan",
+      "tier": "verified",
+      "res": "1080p",
+      "url": "https://ncdn.telewebion.ir/sahand/live/playlist.m3u8",
+      "logo": "https://upload.wikimedia.org/wikipedia/fa/thumb/3/37/Tabriz_Sahand.svg/960px-Tabriz_Sahand.svg.png",
+      "note": "Iranian state TV (IRIB) for East Azerbaijan, Tabriz; Persian and Azerbaijani",
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "savalan",
+      "name": "Savalan TV",
+      "aliases": [
+        "Sabalan TV"
+      ],
+      "group": "South Azerbaijan",
+      "tier": "verified",
+      "res": "576p",
+      "url": "https://ncdn.telewebion.ir/sabalan/live/playlist.m3u8",
+      "logo": "https://upload.wikimedia.org/wikipedia/fa/f/f2/Ardabil_SABALAN.png",
+      "note": "Iranian state TV (IRIB) for Ardabil; Persian and Azerbaijani",
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "qerbiazerbaycan",
+      "name": "Qərbi Azərbaycan TV",
+      "aliases": [
+        "West Azerbaijan TV",
+        "Azarbayjan Gharbi"
+      ],
+      "group": "South Azerbaijan",
+      "tier": "verified",
+      "res": "576p",
+      "url": "https://ncdn.telewebion.ir/azarbayjangharbi/live/playlist.m3u8",
+      "logo": "https://upload.wikimedia.org/wikipedia/fa/thumb/2/21/Urmia_TV.svg/960px-Urmia_TV.svg.png",
+      "note": "Iranian state TV (IRIB) for West Azerbaijan, Urmia; Persian, Azerbaijani and Kurdish",
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
+      "id": "haditv",
+      "name": "Hadi TV",
+      "group": "Religious",
+      "tier": "verified",
+      "res": "720p",
+      "url": "https://bucharest.zeuscdn724.com/lb0/H3/index.m3u8",
+      "logo": "https://az.haditv.co.uk/pics/logo.png",
+      "note": "Azerbaijani-language Shia religious channel",
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+    },
+    {
       "id": "aztv",
       "name": "AzTV",
       "group": "General",
@@ -173,15 +358,6 @@
       "logo": "https://yoda.az/logos/aztv.svg",
       "epg": "https://azepg.ddns.net/aztv/15_days_archive__aztv_desc.xml",
       "reason": "the only open sources (stream*.cinerama.uz) are an Uzbek OTT that inserts its own ads; the official yodacdn stream needs a token"
-    },
-    {
-      "id": "medeniyyet",
-      "name": "Mədəniyyət TV",
-      "group": "Culture",
-      "tier": "unreachable",
-      "url": "https://str.yodacdn.net/medeniyyettele/index.m3u8",
-      "logo": "https://yoda.az/logos/medeniyyet.svg",
-      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
     },
     {
       "id": "cbc",
@@ -196,29 +372,7 @@
         "Referer": "https://player.castr.com/"
       },
       "logo": "https://yoda.az/logos/cbc.svg",
-      "reason": "castr stream ID changed (HTTP 404); the yodacdn copy needs a token (403)"
-    },
-    {
-      "id": "xezer",
-      "name": "Xəzər TV",
-      "group": "General",
-      "tier": "unreachable",
-      "url": "https://www.xezerxeber.az/stream/index.m3u8",
-      "logo": "https://yoda.az/logos/xazar.png",
-      "epg": "https://azepg.ddns.net/aztv/15_days_archive__xezer_desc.xml",
-      "reason": "HTTP 410 Gone"
-    },
-    {
-      "id": "naxcivan",
-      "name": "Naxçıvan TV",
-      "group": "Regional",
-      "tier": "unreachable",
-      "url": "https://str2.yodacdn.net/ntv/video.m3u8",
-      "alt": [
-        "https://str1.yodacdn.net/ntv/tracks-v1a1/mono.ts.m3u8"
-      ],
-      "logo": "https://yoda.az/logos/ntv.png",
-      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
+      "reason": "castr player says 'Stream Offline' (404, 2026-11-08), same stream ID as before; str*.yodacdn.net needs a per-viewer token"
     },
     {
       "id": "arb",
@@ -227,24 +381,6 @@
       "tier": "unreachable",
       "url": "https://str.yodacdn.net/arb/video.m3u8",
       "logo": "https://yoda.az/logos/arb.svg",
-      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
-    },
-    {
-      "id": "arb24",
-      "name": "ARB 24",
-      "group": "News",
-      "tier": "unreachable",
-      "url": "https://str.yodacdn.net/arb24/video.m3u8",
-      "logo": "https://yoda.az/logos/arb24.svg",
-      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
-    },
-    {
-      "id": "arbgunesh",
-      "name": "ARB Günəş",
-      "group": "Kids",
-      "tier": "unreachable",
-      "url": "https://str.yodacdn.net/arbgunesh/video.m3u8",
-      "logo": "https://yoda.az/logos/gunesh.svg",
       "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
     },
     {
@@ -257,48 +393,12 @@
       "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
     },
     {
-      "id": "real",
-      "name": "Real TV",
-      "group": "News",
-      "tier": "unreachable",
-      "url": "https://str.yodacdn.net/real/video.m3u8",
-      "logo": "https://yoda.az/logos/real.svg",
-      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
-    },
-    {
-      "id": "idmantele",
-      "name": "İdman Azərbaycan",
-      "aliases": [
-        "Idman TV"
-      ],
-      "group": "Sports",
-      "tier": "unreachable",
-      "url": "https://str.yodacdn.net/idmantele/video.m3u8",
-      "alt": [
-        "https://str.yodacdn.net/idmantele/index.m3u8"
-      ],
-      "logo": "https://yoda.az/logos/idman.svg",
-      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
-    },
-    {
       "id": "qafkaz",
       "name": "Qafqaz TV",
       "group": "General",
       "tier": "unreachable",
       "url": "https://str.yodacdn.net/qafkaz/video.m3u8",
       "logo": "https://yoda.az/logos/qafqaz.svg",
-      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
-    },
-    {
-      "id": "mtvaz",
-      "name": "MTV Azərbaycan",
-      "aliases": [
-        "MTV Azerbaijan"
-      ],
-      "group": "Music",
-      "tier": "unreachable",
-      "url": "https://str.yodacdn.net/mtvaz/video.m3u8",
-      "logo": "https://yoda.az/logos/mtv.png",
       "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
     },
     {
@@ -329,21 +429,93 @@
       "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
     },
     {
-      "id": "showplus",
-      "name": "Show Plus TV",
-      "group": "General",
+      "id": "arb24",
+      "name": "ARB 24",
+      "group": "News",
       "tier": "unreachable",
-      "url": "https://str.yodacdn.net/showplus/video.m3u8",
-      "logo": "https://yoda.az/logos/showplus.png",
-      "reason": "HTTP 404 on the yodacdn path"
+      "url": "https://str.yodacdn.net/arb24/video.m3u8",
+      "logo": "https://yoda.az/logos/arb24.svg",
+      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
+    },
+    {
+      "id": "real",
+      "name": "Real TV",
+      "group": "News",
+      "tier": "unreachable",
+      "url": "https://str.yodacdn.net/real/video.m3u8",
+      "logo": "https://yoda.az/logos/real.svg",
+      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
+    },
+    {
+      "id": "idmantele",
+      "name": "İdman Azərbaycan",
+      "aliases": [
+        "Idman TV"
+      ],
+      "group": "Sports",
+      "tier": "unreachable",
+      "url": "https://str.yodacdn.net/idmantele/video.m3u8",
+      "alt": [
+        "https://str.yodacdn.net/idmantele/index.m3u8"
+      ],
+      "logo": "https://yoda.az/logos/idman.svg",
+      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
+    },
+    {
+      "id": "mtvaz",
+      "name": "MTV Azərbaycan",
+      "aliases": [
+        "MTV Azerbaijan"
+      ],
+      "group": "Music",
+      "tier": "unreachable",
+      "url": "http://85.132.78.6:1935/live/muztvstream/playlist.m3u8",
+      "alt": [
+        "https://str.yodacdn.net/mtvaz/video.m3u8"
+      ],
+      "logo": "https://yoda.az/logos/mtv.png",
+      "reason": "the broadcaster's own Wowza stream returns 404 (2026-11-08); str*.yodacdn.net needs a per-viewer token"
+    },
+    {
+      "id": "naxcivan",
+      "name": "Naxçıvan TV",
+      "group": "Regional",
+      "tier": "unreachable",
+      "url": "https://str2.yodacdn.net/ntv/video.m3u8",
+      "alt": [
+        "https://str1.yodacdn.net/ntv/tracks-v1a1/mono.ts.m3u8"
+      ],
+      "logo": "https://yoda.az/logos/ntv.png",
+      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
     },
     {
       "id": "biznestv",
       "name": "Biznes TV",
       "group": "Business",
       "tier": "unreachable",
-      "url": "https://str.yodacdn.net/biznestv/video.m3u8",
+      "url": "https://biznestv.az/hls/live.m3u8",
+      "alt": [
+        "https://str.yodacdn.net/biznestv/video.m3u8"
+      ],
       "logo": "https://yoda.az/logos/biznestv.png",
+      "reason": "the broadcaster's own stream returns 404 (2026-11-08); str*.yodacdn.net needs a per-viewer token"
+    },
+    {
+      "id": "medeniyyet",
+      "name": "Mədəniyyət TV",
+      "group": "Culture",
+      "tier": "unreachable",
+      "url": "https://str.yodacdn.net/medeniyyettele/index.m3u8",
+      "logo": "https://yoda.az/logos/medeniyyet.svg",
+      "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
+    },
+    {
+      "id": "arbgunesh",
+      "name": "ARB Günəş",
+      "group": "Kids",
+      "tier": "unreachable",
+      "url": "https://str.yodacdn.net/arbgunesh/video.m3u8",
+      "logo": "https://yoda.az/logos/gunesh.svg",
       "reason": "str*.yodacdn.net now needs a per-viewer token (tied to IP and user agent, 24h expiry); HTTP 403 deny_backend from inside Azerbaijan too"
     }
   ]

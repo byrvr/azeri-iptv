@@ -21,6 +21,10 @@ verified = [c for c in doc["channels"] if c["tier"] == "verified"]
 # files with Unix timestamps, which TV apps can't parse as XMLTV.
 HEADER = "#EXTM3U"
 
+# Playlist headers become #EXTVLCOPT:http-<name> lines. VLC (and the IPTV apps
+# that copy its syntax) spell the Referer option "http-referrer".
+VLC_NAMES = {"referer": "referrer"}
+
 
 lines = [HEADER]
 for c in verified:
@@ -30,7 +34,7 @@ for c in verified:
     attrs += f' group-title="{c["group"]}"'
     lines.append(f"#EXTINF:-1 {attrs},{c['name']}")
     for k, v in (c.get("headers") or {}).items():
-        lines.append(f"#EXTVLCOPT:http-{k.lower()}={v}")
+        lines.append(f"#EXTVLCOPT:http-{VLC_NAMES.get(k.lower(), k.lower())}={v}")
     lines.append(c["url"])
 body = "\n".join(lines) + "\n"
 
