@@ -15,9 +15,9 @@ build_m3u.py    # regenerate playlist.m3u from playlist.json
 **Raw URLs** (what you point your TV at):
 
 ```
-https://raw.githubusercontent.com/byrvr/catapult/claude/parallel-agents-azeri-streams-az8hu0/azeri-iptv/playlist-all.m3u
-https://raw.githubusercontent.com/byrvr/catapult/claude/parallel-agents-azeri-streams-az8hu0/azeri-iptv/playlist.m3u
-https://raw.githubusercontent.com/byrvr/catapult/claude/parallel-agents-azeri-streams-az8hu0/azeri-iptv/playlist.json
+https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist-all.m3u
+https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist.m3u
+https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist.json
 ```
 
 ## 28 channels, and where they work
