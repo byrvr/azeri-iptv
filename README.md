@@ -1,18 +1,18 @@
 # Azərbaycan IPTV
 
 Free-to-air Azerbaijani TV channels as a public HLS playlist, in both JSON and
-M3U form, for loading into a TV app.
+M3U form, for loading into a TV app (built for cub.best / Lampa).
 
 ```
-playlist.json     # full channel list with tiers, alternates, headers, logos, EPG
-playlist.m3u      # all 28 working channels, one URL each
-playlist-all.m3u  # same, plus every alternate URL as its own entry (35) - use
-                  # this one on a TV, so a failing channel can be swapped in place
-selftest.py     # re-verify every channel from your own network
-build_m3u.py    # regenerate playlist.m3u from playlist.json
+playlist-all.m3u  # 13 channels + working alternate URLs as extra entries (14)
+playlist.m3u      # 13 channels, one URL each
+playlist.json     # everything: working channels, dead ones with the reason,
+                  # alternates, headers, logos
+selftest.py       # re-check every channel from your own network
+build_m3u.py      # regenerate both .m3u files from playlist.json
 ```
 
-**Raw URLs** (what you point your TV at):
+**Raw URLs** (what you point the TV app at):
 
 ```
 https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist-all.m3u
@@ -20,101 +20,84 @@ https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist.m3u
 https://raw.githubusercontent.com/byrvr/azeri-iptv/main/playlist.json
 ```
 
-## 28 channels, and where they work
+## 13 working channels
 
-| | Count | Meaning |
-|---|---|---|
-| `verified` | 28 | Confirmed working |
-| ├ probed from outside AZ | 12 | Checked end-to-end, repeatedly, from a US vantage point |
-| └ `geo: "AZ"` | 16 | **Only reachable from an Azerbaijani connection** — 403 elsewhere |
-| `degraded` | 1 | Plays, but fails the quality bar — see `warnings` |
+Last checked 2026-11-08 from Baku (AG Telekom), three separate passes.
 
-The 16 `geo: "AZ"` channels — ATV, ARB, ARB 24, ARB Günəş, Space, Real, İctimai,
-İdman, Qafqaz, MTV, VIP, SH TV, TMB, Show Plus, Biznes, Kanal S — are the real
-URLs the national `yoda.az` platform uses, and they are geo-restricted. That was
-tested rather than assumed: a valid session token was minted for the test IP and
-every gated channel still returned 403, ruling out an auth problem and leaving
-geo/licensing.
+| Channel | Group | Source | Notes |
+|---|---|---|---|
+| AzTV | General | `stream8.cinerama.uz` | |
+| Baku TV | News | `rtmp.baku.tv` | |
+| İctimai TV | General | `live.itv.az` | |
+| APA TV | News | `stream.apa.tv` | HTTP only |
+| ATV | General | `lives.atv.az:5443` | port 5443 |
+| Kanal S | General | `lives.atv.az:5443` | port 5443 |
+| Ayaz TV | General | `vgcdn.net` | |
+| AzStar TV | General | `livestreamtv.ca`, alt `live.azstartv.com` | diaspora, broadcast from Canada; alt is HTTP only |
+| KN Music TV | Music | `yayin.com.tr` | |
+| GunAz TV | General | `tv.gunaz.tv` | South Azerbaijani (Iranian Azeri) diaspora |
+| Vilayət TV | General | `livekadeh.com` | South Azerbaijani (Iranian Azeri) |
+| EL TV | General | `live.eltv.az` | 360p only |
+| Kəpəz TV | Regional | `85.132.78.122:8050` | HTTP only, bare IP that can change |
 
-They are marked `verified` on the strength of a **report from an Azerbaijani
-connection**, not our own probe — the `verified_from` field on each entry records
-this. The report was that they work "mostly", so a few may still be stale; the
-three flagged with a 404 warning are the likeliest.
+**HTTP-only** streams play fine in the TV app but can be blocked as mixed content
+in cub.best's web version. **Port 5443** is refused by a few networks and TV apps.
 
-**Outside Azerbaijan these 16 will fail.** Filter them out with:
+## What's gone, and why
 
-```bash
-python3 -c "import json;d=json.load(open('playlist.json'));\
-print([c['name'] for c in d['channels'] if not c.get('geo')])"
-```
+17 channels have no working free stream. They stay in `playlist.json` with
+`tier: "unreachable"` and a `reason`, so `selftest.py` keeps re-checking them
+and `--promote` brings back any that recover.
 
-To re-check everything from your own network at any time:
+- **ARB, ARB 24, ARB Günəş, Space, Real, İdman, Qafqaz, MTV, VIP HD, SH TV, TMB,
+  Biznes, Mədəniyyət, Naxçıvan** all streamed from the `yoda.az` platform's CDN
+  (`str*.yodacdn.net`). It now refuses any request without a per-viewer token
+  (`x-deny-reason: deny_backend`), from inside Azerbaijan too. The official
+  player issues that token bound to the viewer's IP and user agent, valid for
+  24 hours, so no fixed URL in a playlist can work. Watch these in the yoda.az
+  app or on the broadcasters' own sites, which embed the same player.
+- **CBC**: the castr stream ID changed (404); the yodacdn copy needs a token.
+- **Xəzər TV**: 410 Gone.
+- **Show Plus**: 404.
 
-```bash
-python3 selftest.py          # pass/fail per channel
-python3 selftest.py --promote  # demote anything that stopped responding
-python3 build_m3u.py           # rebuild the .m3u files
-```
+An earlier version of this playlist called the yodacdn channels geo-locked and
+"working from Azerbaijan". As of November 2026 that's no longer true.
 
-## What "verified" actually means
+## What "verified" means
 
-A stream counts as working only if **all** of these hold. The final URL set passed
-**4 full re-checks over ~35 minutes**; individual URLs were checked 7–11 times
-across the whole run:
+A stream counts as working only if **all** of these hold:
 
 1. The manifest returns 200 and parses as HLS, not an HTML error page
 2. A media playlist resolves (via the highest-bandwidth variant, for masters)
 3. It is live — no `#EXT-X-ENDLIST`
-4. A real segment downloads with meaningful bytes, at measured throughput
+4. A real segment downloads with meaningful bytes
 5. **The live edge advances on re-fetch** — the media sequence moves forward
 
 Step 5 is the one that matters most. A dead channel's manifest often keeps
 returning 200 long after the encoder stops, so "the URL responds" is not
-evidence that anything is playing. Two subtleties were worth handling:
+evidence that anything is playing. The middle segment is sampled rather than
+the first, which can roll off a short DVR window between fetches and 404 on a
+healthy stream.
 
-- Some origins **load-balance across backends with independent sequence
-  numbering** (~1.1M on one, ~11.0M on another), so a naive before/after
-  comparison reads as "went backwards" on a perfectly healthy channel. The
-  check clusters samples by magnitude and requires progress within a cluster.
-- Sampling the *first* segment is unreliable — on a short DVR window it can roll
-  off between fetching the playlist and fetching the segment, 404ing on a
-  healthy stream. The middle segment is sampled instead.
+## Checking and updating
 
-Observed stability, counting every check run against each URL:
+Run the check from an Azerbaijani connection, ideally the TV's own network.
+Some sources only answer from inside the country, so a run from elsewhere (or
+from GitHub Actions, which runs in the US) will mark working channels as dead.
 
-| Result | Channels |
-|---|---|
-| clean on every pass | Ayaz TV, AzStar, GunAz, KN Music, Naxçıvan, Vilayət, Xəzər, Mədəniyyət, Baku TV, CBC |
-| one transient blip | AzTV (alt edge only — primary held), APA TV (503) |
-
-## Notes on individual channels
-
-- **CBC** needs `Referer: https://player.castr.com/`. It's in the M3U as an
-  `#EXTVLCOPT` line; players that ignore those will get a 403.
-- **APA TV** is HTTP-only (no TLS) and returned one transient 503 during testing.
-- **EL TV** (`degraded`) has an **expired TLS certificate** — most TV players
-  will refuse it outright. Kept in the JSON for completeness, excluded from the M3U.
-- **AzTV, Baku TV, Naxçıvan, AzStar** each have a second independent edge in `alt`.
-  `selftest.py` falls back to those automatically.
-- **GunAz TV** and **Vilayət TV** are South Azerbaijani (Iranian Azeri) channels;
-  **AzStar** is diaspora, broadcast from Canada. Labelled in the `note` field.
-- **Kanal 35** appears in several public playlists tagged `group-title="Azerbaijan"`.
-  It is an **İzmir regional channel**, not Azerbaijani, and is excluded.
+```bash
+python3 selftest.py                     # pass/fail per channel
+python3 selftest.py --tier unreachable  # just the dead ones
+python3 selftest.py --promote           # update tiers in playlist.json
+python3 build_m3u.py                    # rebuild the .m3u files
+```
 
 ## Sources
 
-Candidates came from the [iptv-org](https://github.com/iptv-org/iptv) playlists
-and API, the official broadcaster sites (aztv.az, medeniyyettv.az, xezerxeber.az,
-baku.tv, cbctv.az, idmantv.az, itv.az, atv.az), the `yoda.az` national platform
-config, and public community playlists. Only free-to-air sources are included —
-no subscription-portal scrapes and no credential-bearing Xtream URLs.
+Candidates came from the [iptv-org](https://github.com/iptv-org/iptv) playlists,
+the official broadcaster sites, and the `yoda.az` platform. Only free-to-air
+sources are included: no subscription-portal scrapes, no credential-bearing
+Xtream URLs, and no token-scraping proxies.
 
-Widely-copied playlists are largely stale: every one of the 21 URLs in the most
-frequently mirrored Azerbaijan playlist is dead, and the `UzunMuhalefet/streams`
-indirection that ~12 channels depend on has had its directory deleted.
-
-## Maintenance
-
-Stream URLs rot. Re-run `python3 selftest.py` periodically; it prints a
-pass/fail line per channel and demotes anything in `verified` that stops
-responding when run with `--promote`.
+**Kanal 35** appears in several public playlists tagged `group-title="Azerbaijan"`.
+It is an **İzmir regional channel**, not Azerbaijani, and is excluded.

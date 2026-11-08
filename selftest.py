@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Self-test every channel in playlist.json from YOUR network.
 
-The 16 channels flagged `geo: "AZ"` are geo-locked to Azerbaijan and could
-not be probed from the machine that built this playlist. Run this on your own
-connection (ideally the same network as the TV) to check them:
+Run it on the same kind of connection as the TV (for this playlist, an
+Azerbaijani one): some sources only answer from inside the country.
 
-    python3 selftest.py                 # tests playlist.json next to this file
-    python3 selftest.py --geo AZ        # just the geo-locked ones
-    python3 selftest.py --promote       # rewrite playlist.json + playlist.m3u,
-                                        # moving whatever passed into `verified`
+    python3 selftest.py                    # tests playlist.json next to this file
+    python3 selftest.py --tier unreachable # just re-check the dead ones
+    python3 selftest.py --promote          # rewrite playlist.json: passing channels
+                                           # become `verified`, failing ones
+                                           # `unreachable` with the reason
+    python3 build_m3u.py                   # then rebuild the .m3u files
 
 A channel passes only if the manifest parses as HLS, a media playlist
 resolves, a real segment downloads, and the live edge advances.
@@ -18,7 +19,6 @@ import concurrent.futures as cf
 import json
 import os
 import re
-import ssl
 import sys
 import time
 import urllib.parse
@@ -29,18 +29,12 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
 TIMEOUT = 15
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-_LAX = ssl.create_default_context()
-_LAX.check_hostname = False
-_LAX.verify_mode = ssl.CERT_NONE
-
-
-def fetch(url, headers=None, limit=None, insecure=False):
+def fetch(url, headers=None, limit=None):
     req = urllib.request.Request(url)
     req.add_header("User-Agent", UA)
     for k, v in (headers or {}).items():
         req.add_header(k, v)
-    with urllib.request.urlopen(req, timeout=TIMEOUT,
-                                context=_LAX if insecure else None) as r:
+    with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
         return r.status, (r.read(limit) if limit else r.read()), r.geturl()
 
 
@@ -49,10 +43,10 @@ def seq_of(t):
     return int(m.group(1)) if m else None
 
 
-def probe(url, headers, insecure):
+def probe(url, headers):
     """Return (ok, detail)."""
     try:
-        st, body, final = fetch(url, headers, insecure=insecure)
+        st, body, final = fetch(url, headers)
     except Exception as e:
         return False, f"{type(e).__name__.replace('Error','')}: {e}"[:70]
     text = body.decode("utf-8", "replace")
@@ -77,7 +71,7 @@ def probe(url, headers, insecure):
         if best is None:
             return False, "master with no variants"
         try:
-            _, mb, mfinal = fetch(best[2], headers, insecure=insecure)
+            _, mb, mfinal = fetch(best[2], headers)
         except Exception as e:
             return False, f"variant: {type(e).__name__}"[:70]
         mtext, murl = mb.decode("utf-8", "replace"), best[2]
@@ -92,8 +86,7 @@ def probe(url, headers, insecure):
     if not segs:
         return False, "no segments"
     try:
-        sst, sb, _ = fetch(segs[len(segs) // 2], headers, limit=700_000,
-                           insecure=insecure)
+        sst, sb, _ = fetch(segs[len(segs) // 2], headers, limit=700_000)
     except Exception as e:
         return False, f"segment: {type(e).__name__}"[:70]
     if len(sb) < 50_000:
@@ -102,7 +95,7 @@ def probe(url, headers, insecure):
     s1 = seq_of(mtext)
     time.sleep(12)
     try:
-        _, b2, _ = fetch(murl, headers, insecure=insecure)
+        _, b2, _ = fetch(murl, headers)
         s2 = seq_of(b2.decode("utf-8", "replace"))
     except Exception:
         s2 = None
@@ -113,9 +106,8 @@ def probe(url, headers, insecure):
 
 def check(ch):
     urls = [ch["url"]] + list(ch.get("alt") or [])
-    insecure = ch["id"] == "eltv"
     for i, u in enumerate(urls):
-        ok, detail = probe(u, ch.get("headers"), insecure)
+        ok, detail = probe(u, ch.get("headers"))
         if ok:
             return dict(ch=ch, ok=True, url=u,
                         detail=detail + ("" if i == 0 else "  [via alt URL]"))
@@ -125,7 +117,6 @@ def check(ch):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tier", help="only test this tier")
-    ap.add_argument("--geo", help="only test channels with this geo flag (e.g. AZ)")
     ap.add_argument("--playlist", default=os.path.join(HERE, "playlist.json"))
     ap.add_argument("--promote", action="store_true",
                     help="rewrite playlist.json/.m3u with passing channels marked verified")
@@ -133,8 +124,7 @@ def main():
 
     doc = json.load(open(a.playlist, encoding="utf-8"))
     chans = [c for c in doc["channels"]
-             if (not a.tier or c["tier"] == a.tier)
-             and (not a.geo or c.get("geo") == a.geo)]
+             if not a.tier or c["tier"] == a.tier]
     print(f"testing {len(chans)} channels...\n")
     with cf.ThreadPoolExecutor(max_workers=8) as ex:
         res = list(ex.map(check, chans))
@@ -152,11 +142,12 @@ def main():
             if r and r["ok"] and c["tier"] != "verified":
                 c["tier"] = "verified"
                 c["verified_from"] = "self-test from this network"
+                c.pop("reason", None)
             elif r and not r["ok"] and c["tier"] == "verified":
                 c["tier"] = "unreachable"
-        for t in ("verified", "degraded", "unreachable"):
-            doc["counts"][t] = len([c for c in doc["channels"] if c["tier"] == t])
-        doc["counts"]["geo_az"] = len([c for c in doc["channels"] if c.get("geo") == "AZ"])
+                c["reason"] = r["detail"]
+        doc["counts"] = {t: len([c for c in doc["channels"] if c["tier"] == t])
+                         for t in ("verified", "unreachable")}
         doc["counts"]["total"] = len(doc["channels"])
         json.dump(doc, open(a.playlist, "w", encoding="utf-8"),
                   indent=2, ensure_ascii=False)
