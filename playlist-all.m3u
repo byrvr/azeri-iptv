@@ -1,6 +1,6 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="aztv" tvg-name="AzTV" tvg-logo="https://yoda.az/logos/aztv.svg" group-title="General",AzTV
-https://stream8.cinerama.uz/1455/tracks-v1a1/mono.m3u8
+https://stream1.cinerama.uz/1455/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="bakutv" tvg-name="Baku TV" tvg-logo="https://yoda.az/logos/bakutv.webp" group-title="News",Baku TV
 https://rtmp.baku.tv/hls/bakutv.m3u8
 #EXTINF:-1 tvg-id="ictimaitv" tvg-name="İctimai TV" tvg-logo="https://yoda.az/logos/itv.png" group-title="General",İctimai TV
@@ -15,8 +15,6 @@ https://lives.atv.az:5443/KANAL-S/streams/kanals.m3u8
 https://janya-ayaztv.vgcdn.net/ptnr-WebApp/title-Ayaz_TV/v1/vglive-sk-934820/main.m3u8
 #EXTINF:-1 tvg-id="azstartv" tvg-name="AzStar TV" group-title="General",AzStar TV
 https://live.livestreamtv.ca/azstar/amlst:azstar/playlist.m3u8
-#EXTINF:-1 tvg-id="azstartv" tvg-name="AzStar TV (alt)" group-title="General",AzStar TV (alt)
-http://live.azstartv.com/azstar/smil:azstar.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="knmusictv" tvg-name="KN Music TV" tvg-logo="https://www.knmusictv.com/wp-content/uploads/2026/01/LOGO2112.png" group-title="Music",KN Music TV
 https://cdn4.yayin.com.tr/kntv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="gunaztv" tvg-name="GunAz TV" tvg-logo="https://i.imgur.com/2ZnQazl.png" group-title="General",GunAz TV

@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Regenerate playlist.m3u and playlist-all.m3u from playlist.json.
 
-Only channels in the `verified` tier are written. Run this after
-`selftest.py --promote` so the .m3u files pick up whatever changed.
+Only channels in the `verified` tier are written, one entry per channel, using
+each channel's primary URL. Alternates stay in playlist.json: selftest.py and
+autoupdate.py promote a working alternate to primary when the primary dies, so
+the TV never needs to see them. (They used to be listed as extra entries, but
+an untested alternate can be dead or show a "blocked" slate.)
 
-    playlist.m3u      one entry per channel
-    playlist-all.m3u  same, plus each working alternate URL as its own entry
+playlist-all.m3u is the same file under its old name, so TV apps already
+pointed at it keep working.
 """
 import json
 import os
@@ -19,35 +22,18 @@ verified = [c for c in doc["channels"] if c["tier"] == "verified"]
 HEADER = "#EXTM3U"
 
 
-def entry(c, url, label):
-    attrs = f'tvg-id="{c["id"]}" tvg-name="{label}"'
+lines = [HEADER]
+for c in verified:
+    attrs = f'tvg-id="{c["id"]}" tvg-name="{c["name"]}"'
     if c.get("logo"):
         attrs += f' tvg-logo="{c["logo"]}"'
     attrs += f' group-title="{c["group"]}"'
-    lines = [f"#EXTINF:-1 {attrs},{label}"]
-    # Headers belong to the primary URL; alternates are separate hosts.
-    if url == c["url"]:
-        for k, v in (c.get("headers") or {}).items():
-            lines.append(f"#EXTVLCOPT:http-{k.lower()}={v}")
-    lines.append(url)
-    return lines
+    lines.append(f"#EXTINF:-1 {attrs},{c['name']}")
+    for k, v in (c.get("headers") or {}).items():
+        lines.append(f"#EXTVLCOPT:http-{k.lower()}={v}")
+    lines.append(c["url"])
+body = "\n".join(lines) + "\n"
 
-
-def write(name, entries):
-    lines = [HEADER]
-    for c, url, label in entries:
-        lines += entry(c, url, label)
-    open(os.path.join(HERE, name), "w", encoding="utf-8").write("\n".join(lines) + "\n")
-    print(f"{name}: {len(entries)} entries")
-
-
-write("playlist.m3u", [(c, c["url"], c["name"]) for c in verified])
-
-allc = []
-for c in verified:
-    allc.append((c, c["url"], c["name"]))
-    alts = c.get("alt") or []
-    for i, u in enumerate(alts):
-        label = f"{c['name']} (alt)" if len(alts) == 1 else f"{c['name']} (alt {i + 1})"
-        allc.append((c, u, label))
-write("playlist-all.m3u", allc)
+for name in ("playlist.m3u", "playlist-all.m3u"):
+    open(os.path.join(HERE, name), "w", encoding="utf-8").write(body)
+print(f"playlist.m3u, playlist-all.m3u: {len(verified)} channels")

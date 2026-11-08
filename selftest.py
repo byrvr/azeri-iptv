@@ -49,6 +49,8 @@ def probe(url, headers):
         st, body, final = fetch(url, headers)
     except Exception as e:
         return False, f"{type(e).__name__.replace('Error','')}: {e}"[:70]
+    if "/blocked/" in final:
+        return False, "redirected to a 'blocked' slate"
     text = body.decode("utf-8", "replace")
     if not text.lstrip().startswith("#EXTM3U"):
         return False, "not HLS (error page?)"
@@ -114,6 +116,54 @@ def check(ch):
     return dict(ch=ch, ok=False, url=urls[0], detail=detail)
 
 
+def check_all(chans):
+    with cf.ThreadPoolExecutor(max_workers=8) as ex:
+        return list(ex.map(check, chans))
+
+
+def host(url):
+    return urllib.parse.urlsplit(url).netloc
+
+
+def apply_results(doc, results, source="self-test from this network"):
+    """Update tiers in `doc` from check() results; return what changed.
+
+    A channel that passed only through an alternate gets that URL promoted to
+    primary (the old primary moves to the end of `alt`), because the .m3u files
+    are built from the primary URL.
+    """
+    changes = []
+    by_id = {r["ch"]["id"]: r for r in results}
+    for c in doc["channels"]:
+        r = by_id.get(c["id"])
+        if not r:
+            continue
+        if r["ok"]:
+            if r["url"] != c["url"]:
+                c["alt"] = [u for u in (c.get("alt") or []) if u != r["url"]] + [c["url"]]
+                c["url"] = r["url"]
+                changes.append(f"{c['name']}: switched to {host(r['url'])}")
+            if c["tier"] != "verified":
+                c["tier"] = "verified"
+                c["verified_from"] = source
+                c.pop("reason", None)
+                changes.append(f"{c['name']}: working again")
+        elif c["tier"] == "verified":
+            c["tier"] = "unreachable"
+            c["reason"] = r["detail"]
+            changes.append(f"{c['name']}: stopped working ({r['detail']})")
+    doc["counts"] = {t: len([c for c in doc["channels"] if c["tier"] == t])
+                     for t in ("verified", "unreachable")}
+    doc["counts"]["total"] = len(doc["channels"])
+    return changes
+
+
+def save(doc, path):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(doc, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tier", help="only test this tier")
@@ -126,8 +176,7 @@ def main():
     chans = [c for c in doc["channels"]
              if not a.tier or c["tier"] == a.tier]
     print(f"testing {len(chans)} channels...\n")
-    with cf.ThreadPoolExecutor(max_workers=8) as ex:
-        res = list(ex.map(check, chans))
+    res = check_all(chans)
 
     for r in sorted(res, key=lambda x: (not x["ok"], x["ch"]["name"])):
         print(f"{'  OK  ' if r['ok'] else ' FAIL '} {r['ch']['name'][:24]:24} "
@@ -136,21 +185,9 @@ def main():
     print(f"\n{len(ok)}/{len(res)} working from this network")
 
     if a.promote:
-        by_id = {r["ch"]["id"]: r for r in res}
-        for c in doc["channels"]:
-            r = by_id.get(c["id"])
-            if r and r["ok"] and c["tier"] != "verified":
-                c["tier"] = "verified"
-                c["verified_from"] = "self-test from this network"
-                c.pop("reason", None)
-            elif r and not r["ok"] and c["tier"] == "verified":
-                c["tier"] = "unreachable"
-                c["reason"] = r["detail"]
-        doc["counts"] = {t: len([c for c in doc["channels"] if c["tier"] == t])
-                         for t in ("verified", "unreachable")}
-        doc["counts"]["total"] = len(doc["channels"])
-        json.dump(doc, open(a.playlist, "w", encoding="utf-8"),
-                  indent=2, ensure_ascii=False)
+        for change in apply_results(doc, res):
+            print(" -", change)
+        save(doc, a.playlist)
         print(f"\nupdated {a.playlist} -> verified={doc['counts']['verified']}")
         print("regenerate the .m3u with:  python3 build_m3u.py")
 

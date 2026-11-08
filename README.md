@@ -4,12 +4,14 @@ Free-to-air Azerbaijani TV channels as a public HLS playlist, in both JSON and
 M3U form, for loading into a TV app (built for cub.best / Lampa).
 
 ```
-playlist-all.m3u  # 13 channels + working alternate URLs as extra entries (14)
-playlist.m3u      # 13 channels, one URL each
+playlist-all.m3u  # 13 channels, one entry each (same as playlist.m3u; old name)
+playlist.m3u      # 13 channels, one entry each
 playlist.json     # everything: working channels, dead ones with the reason,
-                  # alternates, headers, logos
+                  # alternate URLs, headers, logos
 selftest.py       # re-check every channel from your own network
 build_m3u.py      # regenerate both .m3u files from playlist.json
+autoupdate.py     # daily job: check, rebuild, push (see "Automatic updates")
+install-mac.sh    # schedule autoupdate.py on a Mac with launchd
 ```
 
 **Raw URLs** (what you point the TV app at):
@@ -26,7 +28,7 @@ Last checked 2026-11-08 from Baku (AG Telekom), three separate passes.
 
 | Channel | Group | Source | Notes |
 |---|---|---|---|
-| AzTV | General | `stream8.cinerama.uz` | |
+| AzTV | General | `stream1.cinerama.uz`, alts `stream2/3/8` | stream8 currently redirects to a "blocked" slate |
 | Baku TV | News | `rtmp.baku.tv` | |
 | İctimai TV | General | `live.itv.az` | |
 | APA TV | News | `stream.apa.tv` | HTTP only |
@@ -79,11 +81,39 @@ evidence that anything is playing. The middle segment is sampled rather than
 the first, which can roll off a short DVR window between fetches and 404 on a
 healthy stream.
 
-## Checking and updating
+## Automatic updates
+
+`autoupdate.py` runs every day on a Mac in Baku, scheduled by launchd. It isn't
+on GitHub Actions because those runners are in the US, and some sources only
+answer from inside Azerbaijan. Each run:
+
+- skips itself if the Mac isn't on an Azerbaijani connection (VPN, travel)
+- adds new working URLs from iptv-org's Azerbaijan list as alternates of
+  channels already here (matched by name or `aliases`)
+- checks every channel, then re-checks failures 3 minutes later so a short
+  outage doesn't drop anything
+- gives up without changing anything if most working channels fail at once
+- marks channels working or dead, switches a channel to its alternate when the
+  primary dies, rebuilds the .m3u files, and commits and pushes only if
+  something changed
+- posts a macOS notification when it pushes or fails
+
+New channels it finds on iptv-org are only logged, never added by itself.
+
+```bash
+./install-mac.sh                          # install; daily at 06:00
+./install-mac.sh --uninstall              # remove
+launchctl kickstart gui/$(id -u)/com.byrvr.azeri-iptv   # run now
+tail -f ~/Library/Logs/azeri-iptv.log     # watch it
+python3 autoupdate.py --dry-run           # see what it would change
+```
+
+If the Mac is asleep at 06:00 the job runs when it wakes; if the Mac is off
+for days, the playlist just doesn't update until it's back.
+
+## Checking by hand
 
 Run the check from an Azerbaijani connection, ideally the TV's own network.
-Some sources only answer from inside the country, so a run from elsewhere (or
-from GitHub Actions, which runs in the US) will mark working channels as dead.
 
 ```bash
 python3 selftest.py                     # pass/fail per channel

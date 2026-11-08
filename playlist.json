@@ -18,7 +18,12 @@
       "group": "General",
       "tier": "verified",
       "res": "1080p",
-      "url": "https://stream8.cinerama.uz/1455/tracks-v1a1/mono.m3u8",
+      "url": "https://stream1.cinerama.uz/1455/tracks-v1a1/mono.m3u8",
+      "alt": [
+        "https://stream2.cinerama.uz/1455/tracks-v1a1/mono.m3u8",
+        "https://stream3.cinerama.uz/1455/tracks-v1a1/mono.m3u8",
+        "https://stream8.cinerama.uz/1455/tracks-v1a1/mono.m3u8"
+      ],
       "logo": "https://yoda.az/logos/aztv.svg",
       "epg": "https://azepg.ddns.net/aztv/15_days_archive__aztv_desc.xml",
       "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
@@ -61,6 +66,9 @@
     {
       "id": "atv",
       "name": "ATV",
+      "aliases": [
+        "Azad TV"
+      ],
       "group": "General",
       "tier": "verified",
       "url": "https://lives.atv.az:5443/ATV_TV_STREAM/streams/atvcanli.m3u8",
@@ -153,6 +161,9 @@
     {
       "id": "kapaztv",
       "name": "Kəpəz TV",
+      "aliases": [
+        "Kapaz TV"
+      ],
       "group": "Regional",
       "tier": "verified",
       "url": "http://85.132.78.122:8050/hls/stream/index.m3u8",
@@ -258,6 +269,9 @@
     {
       "id": "idmantele",
       "name": "İdman Azərbaycan",
+      "aliases": [
+        "Idman TV"
+      ],
       "group": "Sports",
       "tier": "unreachable",
       "url": "https://str.yodacdn.net/idmantele/video.m3u8",
@@ -279,6 +293,9 @@
     {
       "id": "mtvaz",
       "name": "MTV Azərbaycan",
+      "aliases": [
+        "MTV Azerbaijan"
+      ],
       "group": "Music",
       "tier": "unreachable",
       "url": "https://str.yodacdn.net/mtvaz/video.m3u8",
