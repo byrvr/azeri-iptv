@@ -1,7 +1,7 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-09T11:51:54Z",
+  "updated": "2026-11-10T11:27:40Z",
   "counts": {
     "verified": 24,
     "unreachable": 18,
@@ -59,11 +59,12 @@
       "id": "ayaztv",
       "name": "Ayaz TV",
       "group": "General",
-      "tier": "verified",
+      "tier": "unreachable",
       "res": "720p",
       "url": "https://janya-ayaztv.vgcdn.net/ptnr-WebApp/title-Ayaz_TV/v1/vglive-sk-934820/main.m3u8",
       "logo": "https://www.ayaztv.com/storage/assets/site_logo.png",
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
+      "reason": "segment: HTTPError: HTTP Error 503: Service Unavailable"
     },
     {
       "id": "azstartv",
@@ -437,7 +438,7 @@
         "AnewZ"
       ],
       "group": "News",
-      "tier": "unreachable",
+      "tier": "verified",
       "url": "https://edge-de-04.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8",
       "alt": [
         "https://edge-rs-01.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8"
@@ -447,7 +448,7 @@
       },
       "logo": "https://i.imgur.com/Lwgdbuu.png",
       "note": "English-language international news channel based in Baku",
-      "reason": "web feed frozen (manifest stopped advancing), 2026-11-08"
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "arb24",
