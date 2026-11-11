@@ -1,10 +1,10 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-10T11:27:40Z",
+  "updated": "2026-11-11T11:14:48Z",
   "counts": {
-    "verified": 24,
-    "unreachable": 18,
+    "verified": 26,
+    "unreachable": 16,
     "total": 42
   },
   "tiers": {
@@ -59,12 +59,11 @@
       "id": "ayaztv",
       "name": "Ayaz TV",
       "group": "General",
-      "tier": "unreachable",
+      "tier": "verified",
       "res": "720p",
       "url": "https://janya-ayaztv.vgcdn.net/ptnr-WebApp/title-Ayaz_TV/v1/vglive-sk-934820/main.m3u8",
       "logo": "https://www.ayaztv.com/storage/assets/site_logo.png",
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
-      "reason": "segment: HTTPError: HTTP Error 503: Service Unavailable"
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "azstartv",
@@ -344,13 +343,12 @@
       "id": "haditv",
       "name": "Hadi TV",
       "group": "Religious",
-      "tier": "unreachable",
+      "tier": "verified",
       "res": "720p",
       "url": "https://bucharest.zeuscdn724.com/lb0/H3/index.m3u8",
       "logo": "https://az.haditv.co.uk/pics/logo.png",
       "note": "Azerbaijani-language Shia religious channel",
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
-      "reason": "HTTP: HTTP Error 404: Not Found"
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "aztv",
