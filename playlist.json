@@ -1,10 +1,10 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-12T11:32:37Z",
+  "updated": "2026-11-13T11:16:09Z",
   "counts": {
-    "verified": 24,
-    "unreachable": 18,
+    "verified": 25,
+    "unreachable": 17,
     "total": 42
   },
   "tiers": {
@@ -437,7 +437,7 @@
         "AnewZ"
       ],
       "group": "News",
-      "tier": "unreachable",
+      "tier": "verified",
       "url": "https://edge-de-04.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8",
       "alt": [
         "https://edge-rs-01.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8"
@@ -447,8 +447,7 @@
       },
       "logo": "https://i.imgur.com/Lwgdbuu.png",
       "note": "English-language international news channel based in Baku",
-      "verified_from": "autoupdate.py from US",
-      "reason": "manifest frozen (dead feed?)"
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "arb24",
