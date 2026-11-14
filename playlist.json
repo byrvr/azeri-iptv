@@ -1,7 +1,7 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-13T11:16:09Z",
+  "updated": "2026-11-14T10:42:52Z",
   "counts": {
     "verified": 25,
     "unreachable": 17,
@@ -343,13 +343,12 @@
       "id": "haditv",
       "name": "Hadi TV",
       "group": "Religious",
-      "tier": "unreachable",
+      "tier": "verified",
       "res": "720p",
       "url": "https://bucharest.zeuscdn724.com/lb0/H3/index.m3u8",
       "logo": "https://az.haditv.co.uk/pics/logo.png",
       "note": "Azerbaijani-language Shia religious channel",
-      "verified_from": "autoupdate.py from US",
-      "reason": "HTTP: HTTP Error 404: Not Found"
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "aztv",
@@ -437,7 +436,7 @@
         "AnewZ"
       ],
       "group": "News",
-      "tier": "verified",
+      "tier": "unreachable",
       "url": "https://edge-de-04.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8",
       "alt": [
         "https://edge-rs-01.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8"
@@ -447,7 +446,8 @@
       },
       "logo": "https://i.imgur.com/Lwgdbuu.png",
       "note": "English-language international news channel based in Baku",
-      "verified_from": "autoupdate.py from US"
+      "verified_from": "autoupdate.py from US",
+      "reason": "manifest frozen (dead feed?)"
     },
     {
       "id": "arb24",

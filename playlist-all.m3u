@@ -48,6 +48,5 @@ https://ncdn.telewebion.ir/sahand/live/playlist.m3u8
 https://ncdn.telewebion.ir/sabalan/live/playlist.m3u8
 #EXTINF:-1 tvg-id="qerbiazerbaycan" tvg-name="Qərbi Azərbaycan TV" tvg-logo="https://upload.wikimedia.org/wikipedia/fa/thumb/2/21/Urmia_TV.svg/960px-Urmia_TV.svg.png" group-title="South Azerbaijan",Qərbi Azərbaycan TV
 https://ncdn.telewebion.ir/azarbayjangharbi/live/playlist.m3u8
-#EXTINF:-1 tvg-id="anewz" tvg-name="AnewZ TV" tvg-logo="https://i.imgur.com/Lwgdbuu.png" group-title="News",AnewZ TV
-#EXTVLCOPT:http-referrer=https://cdn.maksnet.tv/
-https://edge-de-04.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="haditv" tvg-name="Hadi TV" tvg-logo="https://az.haditv.co.uk/pics/logo.png" group-title="Religious",Hadi TV
+https://bucharest.zeuscdn724.com/lb0/H3/index.m3u8
