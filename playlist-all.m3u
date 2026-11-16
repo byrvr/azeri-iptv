@@ -18,6 +18,8 @@ https://xezer.tvstream.az/hls/stream/index.m3u8
 https://rtmp.showplus.tv/hls/myshow.m3u8
 #EXTINF:-1 tvg-id="konultv" tvg-name="Könül TV" group-title="General",Könül TV
 http://cdn-konultvazerbaijan.yayin.com.tr/konultvazerbaijan/konultvazerbaijan/playlist.m3u8
+#EXTINF:-1 tvg-id="bakutv" tvg-name="Baku TV" tvg-logo="https://yoda.az/logos/bakutv.webp" group-title="News",Baku TV
+https://rtmp.baku.tv/hls/bakutv.m3u8
 #EXTINF:-1 tvg-id="apatv" tvg-name="APA TV" tvg-logo="https://yoda.az/logos/apatv.png" group-title="News",APA TV
 http://stream.apa.tv/apastream/index.m3u8
 #EXTINF:-1 tvg-id="sestv" tvg-name="Səs TV" tvg-logo="https://sestv.az/assets/images/apple-touch-icon.png" group-title="News",Səs TV
