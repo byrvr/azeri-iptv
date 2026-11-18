@@ -1,10 +1,10 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-17T12:06:35Z",
+  "updated": "2026-11-18T11:59:43Z",
   "counts": {
-    "verified": 25,
-    "unreachable": 17,
+    "verified": 26,
+    "unreachable": 16,
     "total": 42
   },
   "tiers": {
@@ -354,11 +354,14 @@
       "id": "aztv",
       "name": "AzTV",
       "group": "General",
-      "tier": "unreachable",
-      "url": "https://str.yodacdn.net/azertv/index.m3u8",
+      "tier": "verified",
+      "url": "http://109.205.166.68/server124/aztv/index3.m3u8?e=1676581573&st=AzGSZjk1DpXY1SLc1m4OvA",
       "logo": "https://yoda.az/logos/aztv.svg",
       "epg": "https://azepg.ddns.net/aztv/15_days_archive__aztv_desc.xml",
-      "reason": "the only open sources (stream*.cinerama.uz) are an Uzbek OTT that inserts its own ads; the official yodacdn stream needs a token"
+      "alt": [
+        "https://str.yodacdn.net/azertv/index.m3u8"
+      ],
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "cbc",
