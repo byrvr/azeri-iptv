@@ -1,10 +1,10 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-18T11:59:43Z",
+  "updated": "2026-11-19T11:56:16Z",
   "counts": {
-    "verified": 26,
-    "unreachable": 16,
+    "verified": 24,
+    "unreachable": 18,
     "total": 42
   },
   "tiers": {
@@ -63,7 +63,10 @@
       "res": "720p",
       "url": "https://janya-ayaztv.vgcdn.net/ptnr-WebApp/title-Ayaz_TV/v1/vglive-sk-934820/main.m3u8",
       "logo": "https://www.ayaztv.com/storage/assets/site_logo.png",
-      "verified_from": "autoupdate.py from US"
+      "verified_from": "autoupdate.py from US",
+      "alt": [
+        "https://janya-ayaztv.vgcdn.net/ptnr-WebApp/title-Ayaz_TV/v1/vglive-sk-934820/720p/720p.m3u8"
+      ]
     },
     {
       "id": "azstartv",
@@ -119,14 +122,15 @@
       "id": "showplus",
       "name": "Show Plus TV",
       "group": "General",
-      "tier": "verified",
+      "tier": "unreachable",
       "res": "1080p",
       "url": "https://rtmp.showplus.tv/hls/myshow.m3u8",
       "logo": "https://yoda.az/logos/showplus.png",
       "warnings": [
         "small self-run server (US hosting); could disappear"
       ],
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
+      "reason": "URL: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verif"
     },
     {
       "id": "konultv",
@@ -343,12 +347,13 @@
       "id": "haditv",
       "name": "Hadi TV",
       "group": "Religious",
-      "tier": "verified",
+      "tier": "unreachable",
       "res": "720p",
       "url": "https://bucharest.zeuscdn724.com/lb0/H3/index.m3u8",
       "logo": "https://az.haditv.co.uk/pics/logo.png",
       "note": "Azerbaijani-language Shia religious channel",
-      "verified_from": "autoupdate.py from US"
+      "verified_from": "autoupdate.py from US",
+      "reason": "HTTP: HTTP Error 404: Not Found"
     },
     {
       "id": "aztv",
