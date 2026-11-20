@@ -1,10 +1,10 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-19T11:56:16Z",
+  "updated": "2026-11-20T11:57:10Z",
   "counts": {
-    "verified": 24,
-    "unreachable": 18,
+    "verified": 25,
+    "unreachable": 17,
     "total": 42
   },
   "tiers": {
@@ -347,13 +347,12 @@
       "id": "haditv",
       "name": "Hadi TV",
       "group": "Religious",
-      "tier": "unreachable",
+      "tier": "verified",
       "res": "720p",
       "url": "https://bucharest.zeuscdn724.com/lb0/H3/index.m3u8",
       "logo": "https://az.haditv.co.uk/pics/logo.png",
       "note": "Azerbaijani-language Shia religious channel",
-      "verified_from": "autoupdate.py from US",
-      "reason": "HTTP: HTTP Error 404: Not Found"
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "aztv",
