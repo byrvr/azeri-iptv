@@ -1,10 +1,10 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-20T11:57:10Z",
+  "updated": "2026-11-21T11:25:47Z",
   "counts": {
-    "verified": 25,
-    "unreachable": 17,
+    "verified": 24,
+    "unreachable": 18,
     "total": 42
   },
   "tiers": {
@@ -336,12 +336,13 @@
         "Azarbayjan Gharbi"
       ],
       "group": "South Azerbaijan",
-      "tier": "verified",
+      "tier": "unreachable",
       "res": "576p",
       "url": "https://ncdn.telewebion.ir/azarbayjangharbi/live/playlist.m3u8",
       "logo": "https://upload.wikimedia.org/wikipedia/fa/thumb/2/21/Urmia_TV.svg/960px-Urmia_TV.svg.png",
       "note": "Iranian state TV (IRIB) for West Azerbaijan, Urmia; Persian, Azerbaijani and Kurdish",
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
+      "reason": "manifest frozen (dead feed?)"
     },
     {
       "id": "haditv",
