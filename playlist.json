@@ -1,10 +1,10 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-22T11:42:51Z",
+  "updated": "2026-11-23T13:12:08Z",
   "counts": {
-    "verified": 25,
-    "unreachable": 17,
+    "verified": 26,
+    "unreachable": 16,
     "total": 42
   },
   "tiers": {
@@ -122,15 +122,14 @@
       "id": "showplus",
       "name": "Show Plus TV",
       "group": "General",
-      "tier": "unreachable",
+      "tier": "verified",
       "res": "1080p",
       "url": "https://rtmp.showplus.tv/hls/myshow.m3u8",
       "logo": "https://yoda.az/logos/showplus.png",
       "warnings": [
         "small self-run server (US hosting); could disappear"
       ],
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
-      "reason": "URL: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verif"
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "konultv",
@@ -139,14 +138,15 @@
         "Konul TV"
       ],
       "group": "General",
-      "tier": "verified",
+      "tier": "unreachable",
       "res": "1080p",
       "url": "http://cdn-konultvazerbaijan.yayin.com.tr/konultvazerbaijan/konultvazerbaijan/playlist.m3u8",
       "note": "Azerbaijani-language channel; mostly Turkish films and series",
       "warnings": [
         "HTTP only"
       ],
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
+      "reason": "HTTP: HTTP Error 404: Not Found"
     },
     {
       "id": "bakutv",
@@ -443,7 +443,7 @@
         "AnewZ"
       ],
       "group": "News",
-      "tier": "unreachable",
+      "tier": "verified",
       "url": "https://edge-de-04.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8",
       "alt": [
         "https://edge-rs-01.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8"
@@ -453,8 +453,7 @@
       },
       "logo": "https://i.imgur.com/Lwgdbuu.png",
       "note": "English-language international news channel based in Baku",
-      "verified_from": "autoupdate.py from US",
-      "reason": "segment: HTTPError: HTTP Error 404: Not Found"
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "arb24",
