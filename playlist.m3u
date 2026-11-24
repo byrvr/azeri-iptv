@@ -16,6 +16,8 @@ https://live.eltv.az/live/eltv/playlist.m3u8
 https://xezer.tvstream.az/hls/stream/index.m3u8
 #EXTINF:-1 tvg-id="showplus" tvg-name="Show Plus TV" tvg-logo="https://yoda.az/logos/showplus.png" group-title="General",Show Plus TV
 https://rtmp.showplus.tv/hls/myshow.m3u8
+#EXTINF:-1 tvg-id="konultv" tvg-name="Könül TV" group-title="General",Könül TV
+http://cdn-konultvazerbaijan.yayin.com.tr/konultvazerbaijan/konultvazerbaijan/playlist.m3u8
 #EXTINF:-1 tvg-id="bakutv" tvg-name="Baku TV" tvg-logo="https://yoda.az/logos/bakutv.webp" group-title="News",Baku TV
 https://rtmp.baku.tv/hls/bakutv.m3u8
 #EXTINF:-1 tvg-id="apatv" tvg-name="APA TV" tvg-logo="https://yoda.az/logos/apatv.png" group-title="News",APA TV

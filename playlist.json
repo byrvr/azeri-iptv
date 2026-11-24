@@ -1,10 +1,10 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-23T13:12:08Z",
+  "updated": "2026-11-24T13:58:55Z",
   "counts": {
-    "verified": 26,
-    "unreachable": 16,
+    "verified": 27,
+    "unreachable": 15,
     "total": 42
   },
   "tiers": {
@@ -138,15 +138,14 @@
         "Konul TV"
       ],
       "group": "General",
-      "tier": "unreachable",
+      "tier": "verified",
       "res": "1080p",
       "url": "http://cdn-konultvazerbaijan.yayin.com.tr/konultvazerbaijan/konultvazerbaijan/playlist.m3u8",
       "note": "Azerbaijani-language channel; mostly Turkish films and series",
       "warnings": [
         "HTTP only"
       ],
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
-      "reason": "HTTP: HTTP Error 404: Not Found"
+      "verified_from": "autoupdate.py from US"
     },
     {
       "id": "bakutv",
