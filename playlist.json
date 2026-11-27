@@ -1,10 +1,10 @@
 {
   "name": "Azərbaycan IPTV",
   "description": "Free-to-air Azerbaijani TV channels, HLS live streams.",
-  "updated": "2026-11-24T13:58:55Z",
+  "updated": "2026-11-27T12:46:46Z",
   "counts": {
-    "verified": 27,
-    "unreachable": 15,
+    "verified": 23,
+    "unreachable": 19,
     "total": 42
   },
   "tiers": {
@@ -138,14 +138,15 @@
         "Konul TV"
       ],
       "group": "General",
-      "tier": "verified",
+      "tier": "unreachable",
       "res": "1080p",
       "url": "http://cdn-konultvazerbaijan.yayin.com.tr/konultvazerbaijan/konultvazerbaijan/playlist.m3u8",
       "note": "Azerbaijani-language channel; mostly Turkish films and series",
       "warnings": [
         "HTTP only"
       ],
-      "verified_from": "autoupdate.py from US"
+      "verified_from": "autoupdate.py from US",
+      "reason": "URL: <urlopen error timed out>"
     },
     {
       "id": "bakutv",
@@ -213,21 +214,23 @@
       "id": "knmusictv",
       "name": "KN Music TV",
       "group": "Music",
-      "tier": "verified",
+      "tier": "unreachable",
       "res": "720p",
       "url": "https://cdn4.yayin.com.tr/kntv/tracks-v1a1/mono.m3u8",
       "logo": "https://www.knmusictv.com/wp-content/uploads/2026/01/LOGO2112.png",
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
+      "reason": "URL: <urlopen error timed out>"
     },
     {
       "id": "ktvmusic",
       "name": "KTV Music",
       "group": "Music",
-      "tier": "verified",
+      "tier": "unreachable",
       "res": "720p",
       "url": "https://cdn4.yayin.com.tr/bakixebertv/video.m3u8",
       "note": "Könül TV's music channel",
-      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08"
+      "verified_from": "Baku, AZ (AG Telekom), 2026-11-08",
+      "reason": "URL: <urlopen error timed out>"
     },
     {
       "id": "yurdfmtv",
@@ -442,7 +445,7 @@
         "AnewZ"
       ],
       "group": "News",
-      "tier": "verified",
+      "tier": "unreachable",
       "url": "https://edge-de-04.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8",
       "alt": [
         "https://edge-rs-01.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8"
@@ -452,7 +455,8 @@
       },
       "logo": "https://i.imgur.com/Lwgdbuu.png",
       "note": "English-language international news channel based in Baku",
-      "verified_from": "autoupdate.py from US"
+      "verified_from": "autoupdate.py from US",
+      "reason": "variant: HTTPError: HTTP Error 404: Not Found"
     },
     {
       "id": "arb24",
