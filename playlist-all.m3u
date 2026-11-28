@@ -16,6 +16,8 @@ https://live.eltv.az/live/eltv/playlist.m3u8
 https://xezer.tvstream.az/hls/stream/index.m3u8
 #EXTINF:-1 tvg-id="showplus" tvg-name="Show Plus TV" tvg-logo="https://yoda.az/logos/showplus.png" group-title="General",Show Plus TV
 https://rtmp.showplus.tv/hls/myshow.m3u8
+#EXTINF:-1 tvg-id="konultv" tvg-name="Könül TV" group-title="General",Könül TV
+http://cdn-konultvazerbaijan.yayin.com.tr/konultvazerbaijan/konultvazerbaijan/playlist.m3u8
 #EXTINF:-1 tvg-id="bakutv" tvg-name="Baku TV" tvg-logo="https://yoda.az/logos/bakutv.webp" group-title="News",Baku TV
 https://rtmp.baku.tv/hls/bakutv.m3u8
 #EXTINF:-1 tvg-id="apatv" tvg-name="APA TV" tvg-logo="https://yoda.az/logos/apatv.png" group-title="News",APA TV
@@ -24,6 +26,10 @@ http://stream.apa.tv/apastream/index.m3u8
 http://145.239.37.125:20458/maksimtv/maksimtv/playlist.m3u8
 #EXTINF:-1 tvg-id="cbcsport" tvg-name="CBC Sport" tvg-logo="https://i.imgur.com/3mEdjuq.png" group-title="Sports",CBC Sport
 https://cbcsports-live.lg.mncdn.com/cbcsports_live/cbcsports/playlist.m3u8
+#EXTINF:-1 tvg-id="knmusictv" tvg-name="KN Music TV" tvg-logo="https://www.knmusictv.com/wp-content/uploads/2026/01/LOGO2112.png" group-title="Music",KN Music TV
+https://cdn4.yayin.com.tr/kntv/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="ktvmusic" tvg-name="KTV Music" group-title="Music",KTV Music
+https://cdn4.yayin.com.tr/bakixebertv/video.m3u8
 #EXTINF:-1 tvg-id="yurdfmtv" tvg-name="Yurd FM TV" group-title="Music",Yurd FM TV
 https://restreamer.livetv.az/yurdfm.index.m3u8
 #EXTINF:-1 tvg-id="mediafmtv" tvg-name="Media FM TV" group-title="Music",Media FM TV
@@ -46,3 +52,8 @@ https://ncdn.telewebion.ir/azarbayjangharbi/live/playlist.m3u8
 https://bucharest.zeuscdn724.com/lb0/H3/index.m3u8
 #EXTINF:-1 tvg-id="aztv" tvg-name="AzTV" tvg-logo="https://yoda.az/logos/aztv.svg" group-title="General",AzTV
 http://109.205.166.68/server124/aztv/index3.m3u8?e=1676581573&st=AzGSZjk1DpXY1SLc1m4OvA
+#EXTINF:-1 tvg-id="anewz" tvg-name="AnewZ TV" tvg-logo="https://i.imgur.com/Lwgdbuu.png" group-title="News",AnewZ TV
+#EXTVLCOPT:http-referrer=https://cdn.maksnet.tv/
+https://edge-de-04.maksnet.tv/cubesanewz-secure/smil:cubesanewz-secure-web.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="biznestv" tvg-name="Biznes TV" tvg-logo="https://yoda.az/logos/biznestv.png" group-title="Business",Biznes TV
+https://biznestv.az/hls/live.m3u8
